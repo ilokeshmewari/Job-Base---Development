@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import JobCard from "@/components/JobCard";
 import PopupForm from "@/components/PopUpForm";
+import SideBarAddBox from "@/components/SideBarAddBox"
 
 export default function HomePage() {
   const [jobs, setJobs] = useState<any[]>([]);
@@ -38,8 +39,7 @@ export default function HomePage() {
           posted_date: job.date,
           deadline: job.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, ""),
           featured_image:
-            job._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-            "/default-job.png",
+            job._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/default-job.png",
         }));
 
         formattedJobs.sort((a: { posted_date: string | number | Date; }, b: { posted_date: string | number | Date; }) => {
@@ -104,14 +104,23 @@ export default function HomePage() {
         </select>
       </div>
 
-      {/* Job Listings */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        {displayedJobs.length > 0 ? (
-          displayedJobs.map((job) => <JobCard key={job.id} job={job} />)
-        ) : (
-          <p className="text-center text-gray-500">No jobs found.</p>
-        )}
+        {/* Main Content */}
+        <div className="flex gap-4 mt-4">
+        {/* Job Listings */}
+        <div className="w-full lg:w-[70%] ml-4 flex flex-col gap-3 cursor-pointer">
+          {displayedJobs.length > 0 ? (
+            displayedJobs.map((job) => <JobCard key={job.id} job={job} />)
+          ) : (
+            <p className="text-center text-gray-500">No jobs found.</p>
+          )}
+        </div>
+
+        {/* Sidebar Ads (Visible only on desktop) */}
+        <div className="hidden lg:block w-[30%] bg-slate-200">
+          <SideBarAddBox/>
+        </div>
       </div>
+
 
       {/* Show More / Show Less Buttons */}
       <div className="flex justify-center mt-4">
