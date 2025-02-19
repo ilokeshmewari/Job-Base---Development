@@ -14,7 +14,7 @@ export default function JobDescriptionPage() {
     async function fetchJob() {
       try {
         const res = await fetch(
-          `https://tuts.codeews.site/wp-json/wp/v2/posts?slug=${slug}`
+          `https://jobbase.codeews.site/wp-json/wp/v2/posts?slug=${slug}`
         );
         const data = await res.json();
 
