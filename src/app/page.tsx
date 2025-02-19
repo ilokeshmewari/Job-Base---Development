@@ -1,34 +1,62 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 import JobCard from "@/components/JobCard";
 import PopupForm from "@/components/PopUpForm";
 import SideBarAddBox from "@/components/SideBarAddBox"
 
 export default function HomePage() {
+  const router = useRouter();
   const [jobs, setJobs] = useState<any[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<any[]>([]);
-  const [displayedJobs, setDisplayedJobs] = useState<any[]>([]); // ✅ Displayed jobs state
+  const [displayedJobs, setDisplayedJobs] = useState<any[]>([]);
   const [sortOrder, setSortOrder] = useState("newest");
   const [searchQuery, setSearchQuery] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(6); // ✅ Initially show 6 posts
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [user, setUser] = useState<any>(null);
 
+  // ✅ Check if user is logged in
   useEffect(() => {
-    if (!sessionStorage.getItem("popupShown")) {
-      const timer = setTimeout(() => {
-        setShowPopup(true);
-        sessionStorage.setItem("popupShown", "true");
-      }, 3000);
-
-      return () => clearTimeout(timer);
+    async function checkUser() {
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) setUser(data.user);
     }
+    checkUser();
   }, []);
 
+  // ✅ Google One Tap Authentication
+  useEffect(() => {
+    if (!user && typeof window !== "undefined") {
+      const googleClientId = "165491862382-hftrv59ieltqjv6nbrl8huaofaik3kba.apps.googleusercontent.com";
+      
+      window.google?.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: async (response: { credential: string }) => {
+          const { credential } = response;
+          const { data, error } = await supabase.auth.signInWithIdToken({
+            provider: "google",
+            token: credential,
+          });
+
+          if (data?.user) setUser(data.user);
+          if (error) console.error("Google Sign-in Error:", error);
+        },
+        auto_select: true,
+        cancel_on_tap_outside: false,
+      });
+
+      window.google?.accounts.id.prompt();
+    }
+  }, [user]);
+
+  // ✅ Fetch jobs from WP API
   useEffect(() => {
     async function fetchJobs() {
       try {
         const wpRes = await fetch(
-          "https://tuts.codeews.site/wp-json/wp/v2/posts?_embed"
+          "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed"
         );
         const wpJobs = await wpRes.json();
 
@@ -42,7 +70,7 @@ export default function HomePage() {
             job._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/default-job.png",
         }));
 
-        formattedJobs.sort((a: { posted_date: string | number | Date; }, b: { posted_date: string | number | Date; }) => {
+        formattedJobs.sort((a: any, b: any) => {
           const dateA = new Date(a.posted_date);
           const dateB = new Date(b.posted_date);
           return sortOrder === "newest"
@@ -50,11 +78,10 @@ export default function HomePage() {
             : dateA.getTime() - dateB.getTime();
         });
 
-        formattedJobs = formattedJobs.slice(0, 50); // ✅ Show only the latest 50 posts
-
+        formattedJobs = formattedJobs.slice(0, 50);
         setJobs(formattedJobs);
         setFilteredJobs(formattedJobs);
-        setDisplayedJobs(formattedJobs.slice(0, 6)); // ✅ Show first 6 initially
+        setDisplayedJobs(formattedJobs.slice(0, visibleCount));
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -63,20 +90,19 @@ export default function HomePage() {
     fetchJobs();
   }, [sortOrder]);
 
+  // ✅ Search & Filter Jobs
   useEffect(() => {
     const filtered = jobs.filter((job) =>
       job.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredJobs(filtered);
-    setDisplayedJobs(filtered.slice(0, visibleCount)); // ✅ Update displayed jobs based on search
+    setDisplayedJobs(filtered.slice(0, visibleCount));
   }, [searchQuery, jobs, visibleCount]);
 
-  // ✅ Handle "Show More" button
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 6);
   };
 
-  // ✅ Handle "Show Less" button (Reset to initial 6)
   const handleShowLess = () => {
     setVisibleCount(6);
   };
@@ -85,7 +111,7 @@ export default function HomePage() {
     <div className="relative">
       {showPopup && <PopupForm onClose={() => setShowPopup(false)} />}
 
-      {/* Search & Filter */}
+      {/* ✅ Navbar */}
       <div className="flex justify-between items-center p-4 border-b">
         <input
           type="text"
@@ -133,7 +159,7 @@ export default function HomePage() {
           </button>
         )}
 
-        {visibleCount > 6 && visibleCount >= filteredJobs.length && (
+        {visibleCount > 6 && (
           <button
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4"
             onClick={handleShowLess}
