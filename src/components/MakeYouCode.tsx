@@ -17,8 +17,9 @@ export default function AdBanner() {
 
       {/* Description */}
       {/* <h1 className="text-2xl font-bold text-blue-900 mt-4">MakeYouCode</h1> */}
-      <p className="text-4xl text-gray-700 mt-2 text-left">
-        Learn, Practice, and Master Coding with DSA & Competitive Programming.
+      <p className="text-xl text-gray-700 mt-2 text-left">
+      An all-in-one platform for beginners to learn DSA, Web Development, Competitive Programming,  
+      prepare for placements, practice coding, and get certified!
       </p>
 
       {/* Visit Button */}
