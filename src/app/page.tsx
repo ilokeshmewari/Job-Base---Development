@@ -142,7 +142,7 @@ export default function HomePage() {
         </div>
 
         {/* Sidebar Ads (Visible only on desktop) */}
-        <div className="hidden lg:block w-[30%] bg-slate-200">
+        <div className="hidden lg:block w-[30%] bg-slate-200 h-[500px]">
           <SideBarAddBox/>
         </div>
       </div>
