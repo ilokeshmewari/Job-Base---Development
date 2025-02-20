@@ -159,7 +159,7 @@ export default function HomePage() {
         </div>
 
         {/* Sidebar Ads (Visible only on desktop) */}
-        <div className="hidden lg:block w-[30%] bg-slate-200 h-96 sticky top-5 border border-gray-300 rounded-sm">
+        <div className="hidden lg:block w-[30%] bg-slate-200 h-[400px] sticky top-5 border border-gray-300 rounded-md">
           <MakeYouCode />
         </div>
       </div>
