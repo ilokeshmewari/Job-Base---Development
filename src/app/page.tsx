@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import JobCard from "@/components/JobCard";
 import PopupForm from "@/components/PopUpForm";
-import SideBarAddBox from "@/components/SideBarAddBox"
+import MakeYouCode from "@/components/MakeYouCode";
+import SessionPopup from "@/components/PopUpForm"; // Import popup component
 
 export default function HomePage() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function HomePage() {
   const [showPopup, setShowPopup] = useState(false);
   const [visibleCount, setVisibleCount] = useState(6);
   const [user, setUser] = useState<any>(null);
+  const [showSessionPopup, setShowSessionPopup] = useState(false);
 
   // ✅ Check if user is logged in
   useEffect(() => {
@@ -29,8 +31,8 @@ export default function HomePage() {
   // ✅ Google One Tap Authentication
   useEffect(() => {
     if (!user && typeof window !== "undefined") {
-      const googleClientId = "165491862382-hftrv59ieltqjv6nbrl8huaofaik3kba.apps.googleusercontent.com";
-      
+      const googleClientId = "YOUR_GOOGLE_CLIENT_ID";
+
       window.google?.accounts.id.initialize({
         client_id: googleClientId,
         callback: async (response: { credential: string }) => {
@@ -107,9 +109,24 @@ export default function HomePage() {
     setVisibleCount(6);
   };
 
+  // ✅ Show session popup once per session
+  useEffect(() => {
+    const popupShown = sessionStorage.getItem("popupShown");
+
+    if (!popupShown) {
+      const timer = setTimeout(() => {
+        setShowSessionPopup(true);
+        sessionStorage.setItem("popupShown", "true");
+      }, 5000); // Show popup after 5 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <div className="relative">
       {showPopup && <PopupForm onClose={() => setShowPopup(false)} />}
+      {showSessionPopup && <SessionPopup onClose={() => setShowSessionPopup(false)} />} 
 
       {/* ✅ Navbar */}
       <div className="flex justify-between items-center py-4 px-1 lg:px-4 border-b">
@@ -130,8 +147,8 @@ export default function HomePage() {
         </select>
       </div>
 
-        {/* Main Content */}
-        <div className="flex gap-4 mt-4">
+      {/* Main Content */}
+      <div className="flex gap-4 mt-4">
         {/* Job Listings */}
         <div className="w-full lg:w-[70%] lg:ml-4 flex flex-col gap-3 cursor-pointer">
           {displayedJobs.length > 0 ? (
@@ -142,11 +159,10 @@ export default function HomePage() {
         </div>
 
         {/* Sidebar Ads (Visible only on desktop) */}
-        <div className="hidden lg:block w-[30%] bg-slate-200">
-          <SideBarAddBox/>
+        <div className="hidden lg:block w-[30%] bg-slate-200 h-96 sticky top-5 border border-gray-300 rounded-sm">
+          <MakeYouCode />
         </div>
       </div>
-
 
       {/* Show More / Show Less Buttons */}
       <div className="flex justify-center mt-4">
