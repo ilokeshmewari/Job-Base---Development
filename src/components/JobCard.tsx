@@ -18,8 +18,8 @@ export default function JobCard({ job }: { job: any }) {
       <div className="sm:w-2/3 w-full sm:pl-4 flex flex-col justify-between">
         <div>
           <h3 className="mt-5 sm:mt-0 font-semibold lg:text-2xl" dangerouslySetInnerHTML={{ __html: job.title }} ></h3>
-          <p className="mt-2 text-sm lg:text-md text-gray-500">
-            <strong></strong> {job.deadline}
+          <p className="mt-2 text-sm lg:text-md text-gray-500" dangerouslySetInnerHTML={{ __html: job.deadline }}>
+            {/* {job.deadline} */}
           </p>
         </div>
         <button
