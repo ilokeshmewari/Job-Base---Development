@@ -67,8 +67,7 @@ export default function JobDescriptionPage() {
       </button>
 
       {/* ✅ Job Title */}
-      <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-left ">
-        {job.title}
+      <h1 className="text-3xl sm:text-5xl tracking-wide font-bold text-gray-900 mb-4 text-left " dangerouslySetInnerHTML={{ __html: job.title }}  >
       </h1>
 
       {/* ✅ Divider */}
@@ -81,11 +80,11 @@ export default function JobDescriptionPage() {
       />
 
       {/* ✅ Apply Now Button */}
-      <div className="mt-8 flex justify-center sm:justify-start">
+      {/* <div className="mt-8 flex justify-center sm:justify-start">
         <button className="px-5 sm:px-6 py-3 bg-green-600 text-white text-sm sm:text-lg font-semibold rounded-lg shadow hover:bg-green-700 transition">
           Apply Now
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

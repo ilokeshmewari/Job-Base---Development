@@ -112,7 +112,7 @@ export default function HomePage() {
       {showPopup && <PopupForm onClose={() => setShowPopup(false)} />}
 
       {/* ✅ Navbar */}
-      <div className="flex justify-between items-center py-4 px-1 border-b">
+      <div className="flex justify-between items-center py-4 px-1 lg:px-4 border-b">
         <input
           type="text"
           placeholder="Search jobs..."
