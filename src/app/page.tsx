@@ -137,6 +137,10 @@ export default function HomePage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+
+        {/* <div className="bg-slate-400 p-2">Search</div> */}
+
+        {/* Pending Work */}
         <select
           className="p-2 border rounded"
           value={sortOrder}
