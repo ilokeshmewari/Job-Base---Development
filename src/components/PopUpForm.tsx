@@ -61,7 +61,7 @@ export default function PopupForm({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-xl shadow-lg w-96 relative animate-fadeIn">
         {/* Close Button */}
         <button
