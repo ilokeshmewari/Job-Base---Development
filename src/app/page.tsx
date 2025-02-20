@@ -112,7 +112,7 @@ export default function HomePage() {
       {showPopup && <PopupForm onClose={() => setShowPopup(false)} />}
 
       {/* ✅ Navbar */}
-      <div className="flex justify-between items-center p-4 border-b">
+      <div className="flex justify-between items-center py-4 px-1 border-b">
         <input
           type="text"
           placeholder="Search jobs..."
@@ -133,7 +133,7 @@ export default function HomePage() {
         {/* Main Content */}
         <div className="flex gap-4 mt-4">
         {/* Job Listings */}
-        <div className="w-full lg:w-[70%] ml-4 flex flex-col gap-3 cursor-pointer">
+        <div className="w-full lg:w-[70%] lg:ml-4 flex flex-col gap-3 cursor-pointer">
           {displayedJobs.length > 0 ? (
             displayedJobs.map((job) => <JobCard key={job.id} job={job} />)
           ) : (

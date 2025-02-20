@@ -14,7 +14,7 @@ export default function JobDescriptionPage() {
     async function fetchJob() {
       try {
         const res = await fetch(
-          `https://tuts.codeews.site/wp-json/wp/v2/posts?slug=${slug}`
+          `https://jobbase.codeews.site/wp-json/wp/v2/posts?slug=${slug}`
         );
         const data = await res.json();
 
@@ -42,30 +42,50 @@ export default function JobDescriptionPage() {
     }
   }, [slug]);
 
-  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[60vh] px-4">
+        <p className="text-gray-500 text-lg text-center">Loading job details...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex justify-center items-center min-h-[60vh] px-4">
+        <p className="text-red-500 text-lg text-center">{error}</p>
+      </div>
+    );
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-white shadow-lg rounded-lg">
       {/* ✅ Back Button */}
-      
+      <button
+        onClick={() => router.back()}
+        className="mb-10 px-4 sm:px-5 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center text-gray-700 transition"
+      >
+        ← Back to Jobs
+      </button>
 
       {/* ✅ Job Title */}
-      <h1 className="text-2xl font-bold mb-4">{job.title}</h1>
+      <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-left ">
+        {job.title}
+      </h1>
+
+      {/* ✅ Divider */}
+      <hr className="border-gray-300 mb-6" />
 
       {/* ✅ Formatted WP Content */}
       <div
-        className="prose max-w-full"
+        className="wp-content prose max-w-full text-gray-800 leading-relaxed text-sm sm:text-base"
         dangerouslySetInnerHTML={{ __html: job.content }}
       />
 
-      <button
-        onClick={() => router.back()}
-        className="mb-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
-      >
-        ← Back
-      </button>
-
+      {/* ✅ Apply Now Button */}
+      <div className="mt-8 flex justify-center sm:justify-start">
+        <button className="px-5 sm:px-6 py-3 bg-green-600 text-white text-sm sm:text-lg font-semibold rounded-lg shadow hover:bg-green-700 transition">
+          Apply Now
+        </button>
+      </div>
     </div>
   );
 }

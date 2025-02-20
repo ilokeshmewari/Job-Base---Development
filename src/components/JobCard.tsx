@@ -19,7 +19,7 @@ export default function JobCard({ job }: { job: any }) {
         <div>
           <h3 className="mt-5 sm:mt-0 font-semibold lg:text-2xl">{job.title}</h3>
           <p className="mt-2 text-sm lg:text-md text-gray-500">
-            <strong>Apply before:</strong> {job.deadline}
+            <strong></strong> {job.deadline}
           </p>
         </div>
         <button
