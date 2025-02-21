@@ -135,7 +135,7 @@ export default function PopupForm({ onClose }: { onClose: () => void }) {
             {/* Social Buttons */}
             <div className="mt-4 flex justify-center space-x-4">
               <a
-                href="https://whatsapp.com" // Replace with your WhatsApp channel link
+                href="https://chat.whatsapp.com/BwtD5g3OzW18JD8ZFW5M6X" // Replace with your WhatsApp channel link
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
@@ -144,7 +144,7 @@ export default function PopupForm({ onClose }: { onClose: () => void }) {
                 Join WhatsApp
               </a>
               <a
-                href="https://telegram.com" // Replace with your Telegram channel link
+                href="https://t.me/jobbase_25" // Replace with your Telegram channel link
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
