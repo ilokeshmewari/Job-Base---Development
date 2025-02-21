@@ -7,11 +7,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head><title>Job Base</title>
-      <Script
-          src="https://accounts.google.com/gsi/client"
-          strategy="beforeInteractive"
-        />
-        </head>
+        <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="295943"></script>
+      </head>
       <body>
         <div className="flex flex-col min-h-screen">
           <Navbar />

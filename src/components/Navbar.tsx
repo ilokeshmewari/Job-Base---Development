@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { User } from "lucide-react"; // ✅ Import Lucide Profile Icon
+{/*import { User } from "lucide-react";*/} // ✅ Import Lucide Profile Icon
 
 export default function Navbar() {
   const router = useRouter();

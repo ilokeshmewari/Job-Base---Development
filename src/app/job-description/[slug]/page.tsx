@@ -2,23 +2,33 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import PopUpForm from "@/components/PopUpForm";
+
+interface Job {
+  title: string;
+  content: string;
+}
 
 export default function JobDescriptionPage() {
-  const { slug } = useParams();
+  const params = useParams();
   const router = useRouter();
-  const [job, setJob] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const slug = params?.slug as string | undefined;
+  const [job, setJob] = useState<Job | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchJob() {
+      if (!slug) return;
+
       try {
         const res = await fetch(
           `https://jobbase.codeews.site/wp-json/wp/v2/posts?slug=${slug}`
         );
-        const data = await res.json();
+        const data: any[] = await res.json();
 
-        if (data.length === 0) {
+        if (!Array.isArray(data) || data.length === 0) {
           setError("Job not found");
           setLoading(false);
           return;
@@ -32,15 +42,27 @@ export default function JobDescriptionPage() {
 
         setLoading(false);
       } catch (err) {
+        console.error("Error fetching job details:", err);
         setError("Error fetching job details");
         setLoading(false);
       }
     }
 
-    if (slug) {
-      fetchJob();
-    }
+    fetchJob();
   }, [slug]);
+
+  useEffect(() => {
+    const popupShown = sessionStorage.getItem("popupShown");
+
+    if (!popupShown) {
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+        sessionStorage.setItem("popupShown", "true");
+      }, 3000); // Show popup after 3 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   if (loading)
     return (
@@ -58,6 +80,9 @@ export default function JobDescriptionPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-white shadow-lg rounded-lg">
+      {/* ✅ Show Popup Form */}
+      {showPopup && <PopUpForm onClose={() => setShowPopup(false)} />} 
+
       {/* ✅ Back Button */}
       <button
         onClick={() => router.back()}
@@ -67,24 +92,20 @@ export default function JobDescriptionPage() {
       </button>
 
       {/* ✅ Job Title */}
-      <h1 className="text-3xl sm:text-5xl tracking-wide font-bold text-gray-900 mb-4 text-left " dangerouslySetInnerHTML={{ __html: job.title }}  >
-      </h1>
+      <h1
+        className="text-3xl sm:text-5xl tracking-wide font-bold text-gray-900 mb-4 text-left"
+        dangerouslySetInnerHTML={{ __html: job?.title || "" }}
+      ></h1>
 
       {/* ✅ Divider */}
       <hr className="border-gray-300 mb-6" />
+      <div data-banner-id="295943"></div>
 
       {/* ✅ Formatted WP Content */}
       <div
         className="wp-content prose max-w-full text-gray-800 leading-relaxed text-sm sm:text-base"
-        dangerouslySetInnerHTML={{ __html: job.content }}
+        dangerouslySetInnerHTML={{ __html: job?.content || "" }}
       />
-
-      {/* ✅ Apply Now Button */}
-      {/* <div className="mt-8 flex justify-center sm:justify-start">
-        <button className="px-5 sm:px-6 py-3 bg-green-600 text-white text-sm sm:text-lg font-semibold rounded-lg shadow hover:bg-green-700 transition">
-          Apply Now
-        </button>
-      </div> */}
     </div>
   );
 }
