@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           src="https://js.wpadmngr.com/static/adManager.js"
           data-admpid="295943"
         ></script>
-
+        <script src="https://kulroakonsu.net/88/tag.min.js" data-zone="132627" async data-cfasync="false"></script>
       </head>
       <body>
         <div className="flex flex-col min-h-screen">
