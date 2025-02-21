@@ -2,7 +2,6 @@
 import Footer from "@/components/Footer";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { useEffect } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   
