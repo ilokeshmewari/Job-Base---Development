@@ -9,6 +9,13 @@ interface Job {
   content: string;
 }
 
+// Define API response type
+interface JobAPIResponse {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+}
+
 export default function JobDescriptionPage() {
   const params = useParams();
   const router = useRouter();
@@ -26,7 +33,7 @@ export default function JobDescriptionPage() {
         const res = await fetch(
           `https://jobbase.codeews.site/wp-json/wp/v2/posts?slug=${slug}`
         );
-        const data: any[] = await res.json();
+        const data: JobAPIResponse[] = await res.json(); // ✅ Typed API Response
 
         if (!Array.isArray(data) || data.length === 0) {
           setError("Job not found");
@@ -35,9 +42,10 @@ export default function JobDescriptionPage() {
         }
 
         const jobData = data[0];
+
         setJob({
-          title: jobData.title.rendered,
-          content: jobData.content.rendered, // ✅ WP API HTML Content
+          title: jobData?.title?.rendered || "Untitled",
+          content: jobData?.content?.rendered || "No content available.",
         });
 
         setLoading(false);

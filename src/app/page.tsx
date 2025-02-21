@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
 import JobCard from "@/components/JobCard";
 import PopupForm from "@/components/PopUpForm";
 import MakeYouCode from "@/components/MakeYouCode";
@@ -13,6 +12,17 @@ type Job = {
   posted_date: string;
   deadline: string;
   featured_image: string;
+};
+
+type WPJob = {
+  id: number;
+  title: { rendered: string };
+  slug: string;
+  date: string;
+  excerpt: { rendered: string };
+  _embedded?: {
+    "wp:featuredmedia"?: { source_url?: string }[];
+  };
 };
 
 export default function HomePage() {
@@ -31,7 +41,7 @@ export default function HomePage() {
         const wpRes = await fetch(
           "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed"
         );
-        const wpJobs: any[] = await wpRes.json();
+        const wpJobs: WPJob[] = await wpRes.json();
 
         const formattedJobs: Job[] = wpJobs.map((job) => ({
           id: job.id,
