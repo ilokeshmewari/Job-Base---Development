@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import PopUpForm from "@/components/PopUpForm";
-import VideoAdPopup from "@/components/VideoAd";
 
 interface Job {
   title: string;
@@ -90,7 +89,6 @@ export default function JobDescriptionPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-white shadow-lg rounded-lg">
 
-    <VideoAdPopup />
 
       {/* ✅ Show Popup Form */}
       {showPopup && <PopUpForm onClose={() => setShowPopup(false)} />} 
