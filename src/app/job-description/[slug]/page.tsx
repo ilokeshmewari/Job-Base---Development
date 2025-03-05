@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import PopUpForm from "@/components/PopUpForm";
+import { MessageCircle, Send } from "lucide-react";
+import Link from "next/link";
+
 
 interface Job {
   title: string;
@@ -91,7 +94,7 @@ export default function JobDescriptionPage() {
 
 
       {/* ✅ Show Popup Form */}
-      {showPopup && <PopUpForm onClose={() => setShowPopup(false)} />} 
+      {showPopup && <PopUpForm onClose={() => setShowPopup(false)} />}
 
       {/* ✅ Back Button */}
       <button
@@ -109,7 +112,32 @@ export default function JobDescriptionPage() {
 
       {/* ✅ Divider */}
       <hr className="border-gray-300 mb-6" />
-      
+
+      <div className="flex flex-col items-center justify-center gap-4 p-6 bg-gray-100 rounded-2xl">
+  <h2 className="text-xl font-semibold">Join Our Community</h2>
+  <div className="flex flex-col sm:flex-row gap-4">
+    <Link
+      href="http://chat.whatsapp.com/HpM7OdWPlTs0A8Sm913WKF"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 w-full sm:w-auto justify-center"
+    >
+      <MessageCircle className="w-5 h-5" />
+      Join WhatsApp Group
+    </Link>
+    <Link
+      href="https://t.me/jobbase_25"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 w-full sm:w-auto justify-center"
+    >
+      <Send className="w-5 h-5" />
+      Join Telegram Channel
+    </Link>
+  </div>
+</div>
+
+
       <div data-banner-id="295943"></div>
 
       {/* ✅ Formatted WP Content */}
