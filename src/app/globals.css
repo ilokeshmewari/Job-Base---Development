@@ -7,7 +7,6 @@
 .wp-content {
     font-family: "Inter", sans-serif;
     color: #333;
-    line-height: 1.7;
     padding: 10px;
   }
   
@@ -18,6 +17,7 @@
     margin-bottom: 1rem;
     color: #222;
     margin-top: 1rem;
+    line-height: 25px;
   }
   
   .wp-content h2 {
@@ -26,6 +26,7 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: #333;
+    line-height: 25px;
 
   }
   
@@ -35,6 +36,7 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: #444;
+    line-height: 25px;
 
   }
   
@@ -42,6 +44,7 @@
   .wp-content p {
     font-size: 1rem;
     margin-bottom: 1rem;
+    line-height: 25px;
     color: #444;
     text-align: left;
   }
@@ -54,7 +57,7 @@
   }
   
   .wp-content ul li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
   }
   
   .wp-content ol {
@@ -64,7 +67,7 @@
   }
   
   .wp-content ol li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
   }
   
   /* Tables */
