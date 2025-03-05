@@ -3,16 +3,27 @@ import { NextResponse } from "next/server";
 const SITE_URL = "https://jobbase.site"; // Replace with your actual domain
 const WP_API_URL = "https://jobbase.codeews.site/wp-json/wp/v2/posts"; // Replace with your actual WP API endpoint
 
+// Define a type for WordPress job posts
+interface JobPost {
+  slug: string;
+  modified: string;
+}
+
 export async function GET() {
   try {
     // Fetch job posts from WP API
     const res = await fetch(WP_API_URL);
-    const jobs = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch jobs: ${res.statusText}`);
+    }
+
+    const jobs: JobPost[] = await res.json();
 
     // Generate job detail URLs dynamically
     const jobUrls = jobs
       .map(
-        (job: any) => `
+        (job) => `
       <url>
         <loc>${SITE_URL}/job-description/${job.slug}</loc>
         <lastmod>${new Date(job.modified).toISOString()}</lastmod>
