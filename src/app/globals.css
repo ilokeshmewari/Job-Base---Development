@@ -7,7 +7,7 @@
 .wp-content {
     font-family: "Inter", sans-serif;
     color: #333;
-    padding: 10px;
+    padding: 2px;
   }
   
   /* Headings */
@@ -138,6 +138,9 @@
       font-size: 1.25rem;
     }
     .wp-content p {
+      font-size: 0.95rem;
+    }
+    .wp-content ul li{
       font-size: 0.95rem;
     }
   }

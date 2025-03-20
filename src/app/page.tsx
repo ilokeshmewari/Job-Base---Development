@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import JobCard from "@/components/JobCard";
-import PopupForm from "@/components/PopUpForm";
 import MakeYouCode from "@/components/MakeYouCode";
-import SessionPopup from "@/components/PopUpForm";
 
 type Job = {
   id: number;
@@ -31,9 +29,7 @@ export default function HomePage() {
   const [displayedJobs, setDisplayedJobs] = useState<Job[]>([]);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [showPopup, setShowPopup] = useState<boolean>(false);
   const [visibleCount, setVisibleCount] = useState<number>(6);
-  const [showSessionPopup, setShowSessionPopup] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchJobs() {
@@ -78,22 +74,8 @@ export default function HomePage() {
     setDisplayedJobs(filtered.slice(0, visibleCount));
   }, [searchQuery, jobs, visibleCount]);
 
-  useEffect(() => {
-    const popupShown = sessionStorage.getItem("popupShown");
-    if (!popupShown) {
-      const timer = setTimeout(() => {
-        setShowSessionPopup(true);
-        sessionStorage.setItem("popupShown", "true");
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   return (
     <div className="relative">
-      {showPopup && <PopupForm onClose={() => setShowPopup(false)} />} 
-      {showSessionPopup && <SessionPopup onClose={() => setShowSessionPopup(false)} />} 
 
       <div className="flex justify-between items-center py-4 px-1 lg:px-4 border-b">
         <input
