@@ -7,6 +7,8 @@ import Link from "next/link";
 import AdPopup from "@/components/AdPopup";
 import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
 import Recommendation from "@/components/Recommendation";
+import Script from "next/script";
+
 
 interface Job {
   title: string;
@@ -212,6 +214,16 @@ export default function JobDescriptionPage() {
       <div>
         <Recommendation />
       </div>
+
+      <div id="ezoic-pub-ad-placeholder-101"></div>
+      <Script id="ezoic-ads" strategy="lazyOnload">
+        {`
+          ezstandalone.cmd.push(function() {
+          ezstandalone.showAds(101);
+          });
+        `}
+      </Script>
+
     </div>
   );
 }
