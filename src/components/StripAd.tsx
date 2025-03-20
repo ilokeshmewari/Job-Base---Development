@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const StripAd = () => {
   const adContainerRef = useRef<HTMLDivElement | null>(null);
-  const [isAdVisible, setIsAdVisible] = useState(true);
+  const [isAdVisible ] = useState(true);
 
   useEffect(() => {
     if (!isAdVisible || !adContainerRef.current) return;
