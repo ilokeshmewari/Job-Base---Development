@@ -104,7 +104,7 @@ export default function JobDescriptionPage() {
       <hr className="border-gray-300 mb-6" />
 
       {/* ✅ Join Community Section */}
-      <div className="flex flex-col items-center justify-center gap-4 p-4 bg-gray-100 rounded-2xl">
+      <div className="flex flex-col items-center justify-center gap-4 p-4 mb-4 bg-gray-100 rounded-2xl">
         <h2 className="text-xl font-semibold">Join Our Community</h2>
         <div className="flex flex-col sm:flex-row gap-4">
           <Link
