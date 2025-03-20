@@ -3,22 +3,24 @@
 import { useEffect, useRef } from "react";
 
 const AdsterraAd = () => {
-  const adContainerRef = useRef<HTMLDivElement>(null);
+  const adContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!adContainerRef.current) return;
 
-    // Clear previous content
+    // Clear previous content to avoid duplicate ads
     adContainerRef.current.innerHTML = "";
 
-    // Define atOptions globally
-    (globalThis as any).atOptions = {
-      key: "95355a1f3c92fe766c0d6e69ebddb093",
-      format: "iframe",
-      height: 50,
-      width: 320,
-      params: {},
-    };
+    // Define Adsterra ad options globally
+    Object.assign(globalThis, {
+      atOptions: {
+        key: "95355a1f3c92fe766c0d6e69ebddb093",
+        format: "iframe",
+        height: 50,
+        width: 320,
+        params: {},
+      },
+    });
 
     // Create script element
     const script = document.createElement("script");
@@ -26,11 +28,13 @@ const AdsterraAd = () => {
     script.async = true;
     script.type = "text/javascript";
 
-    // Append script inside the ad container
+    // Append the script inside the ad container
     adContainerRef.current.appendChild(script);
 
     return () => {
-      adContainerRef.current && (adContainerRef.current.innerHTML = "");
+      if (adContainerRef.current) {
+        adContainerRef.current.innerHTML = ""; // Cleanup when component unmounts
+      }
     };
   }, []);
 
