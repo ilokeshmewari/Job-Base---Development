@@ -7,6 +7,7 @@ import Link from "next/link";
 import AdPopup from "@/components/AdPopup";
 import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
 import Recommendation from "@/components/Recommendation";
+import NativeBanner from "@/components/NativeBanner";
 
 
 interface Job {
@@ -199,6 +200,11 @@ export default function JobDescriptionPage() {
             Join Telegram Channel
           </Link>
         </div>
+      </div>
+
+      <div className="bg-gray-100 p-2 mb-2 rounded-md">
+        <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
+        <NativeBanner />
       </div>
 
       {/* ✅ Formatted WP Content */}
