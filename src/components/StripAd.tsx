@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const StripAd = () => {
   const adContainerRef = useRef<HTMLDivElement | null>(null);
