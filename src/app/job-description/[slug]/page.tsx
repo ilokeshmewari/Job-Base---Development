@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
-import AdPopup from "@/components/AdPopup"; // ✅ Import the AdPopup component
+import AdPopup from "@/components/AdPopup";
+import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
 
 interface Job {
   title: string;
@@ -24,7 +25,7 @@ export default function JobDescriptionPage() {
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const [showAd, setShowAd] = useState<boolean>(false); // ✅ State to control Ad visibility
+  const [showAd, setShowAd] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchJob() {
@@ -60,14 +61,85 @@ export default function JobDescriptionPage() {
     fetchJob();
   }, [slug]);
 
-  // ✅ Show AdPopup after 5 seconds
+  // ✅ Increase views after 3 seconds
+  useEffect(() => {
+    if (!slug) return;
+
+    const timer = setTimeout(async () => {
+      try {
+        const { data, error } = await supabase
+          .from("job_views")
+          .select("views")
+          .eq("slug", slug)
+          .single();
+
+        if (error && error.code !== "PGRST116") {
+          console.error("Error fetching views:", error);
+          return;
+        }
+
+        if (!data) {
+          // If the slug is not found, insert a new row
+          await supabase.from("job_views").insert([{ slug, views: 1, clicks: 0 }]);
+        } else {
+          // Otherwise, increment the views count
+          await supabase
+            .from("job_views")
+            .update({ views: data.views + 1 })
+            .eq("slug", slug);
+        }
+      } catch (err) {
+        console.error("Error updating views:", err);
+      }
+    }, 15000);
+
+    return () => clearTimeout(timer);
+  }, [slug]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowAd(true);
     }, 5000);
 
-    return () => clearTimeout(timer); // Cleanup
+    return () => clearTimeout(timer);
   }, []);
+
+
+  // ✅ Increase clicks when user clicks anywhere on the page
+  useEffect(() => {
+    if (!slug) return;
+
+    const handleClick = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("job_views")
+          .select("clicks")
+          .eq("slug", slug)
+          .single();
+
+        if (error && error.code !== "PGRST116") {
+          console.error("Error fetching clicks:", error);
+          return;
+        }
+
+        if (!data) {
+          // If the slug is not found, insert a new row
+          await supabase.from("job_views").insert([{ slug, views: 0, clicks: 1 }]);
+        } else {
+          // Otherwise, increment the clicks count
+          await supabase
+            .from("job_views")
+            .update({ clicks: data.clicks + 1 })
+            .eq("slug", slug);
+        }
+      } catch (err) {
+        console.error("Error updating clicks:", err);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, [slug]);
 
   if (loading)
     return (
@@ -85,7 +157,6 @@ export default function JobDescriptionPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-2 sm:px-6 py-2 sm:py-8 bg-white">
-
       {/* ✅ Back Button */}
       <button
         onClick={() => router.back()}
