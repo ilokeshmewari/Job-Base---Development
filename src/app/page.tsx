@@ -26,13 +26,16 @@ type WPJob = {
 export default function HomePage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
   const jobsPerPage = 10;
 
   useEffect(() => {
     async function fetchJobs() {
       try {
+        setLoading(true);
         const wpRes = await fetch(
           "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=100"
         );
@@ -52,6 +55,8 @@ export default function HomePage() {
         setFilteredJobs(formattedJobs);
       } catch (error) {
         console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -77,31 +82,40 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      <div className="flex justify-between items-center py-4 px-1 lg:px-4 border-b">
+      {/* Search Bar */}
+      <div className="py-4 px-2 lg:px-4 border-b">
         <input
           type="text"
           placeholder="Search jobs..."
-          className="p-2 border rounded w-2/3"
+          className="p-2 border rounded w-full sm:w-2/3"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
 
-      <div className="flex gap-4 mt-4">
+      <div className="flex flex-col lg:flex-row gap-4 mt-4">
+        {/* Job List */}
         <div className="w-full lg:w-[70%] lg:ml-4 flex flex-col gap-3 cursor-pointer">
-          {currentJobs.length > 0 ? (
+          {loading ? (
+            // Skeleton Placeholder when loading
+            [...Array(5)].map((_, index) => (
+              <div key={index} className="animate-pulse bg-gray-200 h-24 rounded-md"></div>
+            ))
+          ) : currentJobs.length > 0 ? (
             currentJobs.map((job) => <JobCard key={job.id} job={job} />)
           ) : (
             <p className="text-center text-gray-500">No jobs found.</p>
           )}
         </div>
 
+        {/* Sidebar */}
         <div className="hidden lg:block w-[30%] bg-slate-200 h-[400px] sticky top-5 border border-gray-300 rounded-md">
           <MakeYouCode />
         </div>
       </div>
 
-      <div className="flex justify-center mt-4 space-x-4">
+      {/* Pagination */}
+      <div className="flex justify-center items-center mt-4 space-x-4">
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
           onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
@@ -110,7 +124,7 @@ export default function HomePage() {
           Previous
         </button>
 
-        <span className="text-lg font-semibold">Page {currentPage} of {totalPages}</span>
+        <span className="text-md">Page {currentPage} of {totalPages}</span>
 
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
