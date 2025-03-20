@@ -69,7 +69,7 @@ export default function AdminDashboard() {
       {/* Top Summary Bar */}
       <div className="bg-blue-500 text-white p-4 rounded-lg flex flex-col md:flex-row justify-between items-center text-center md:text-left">
         <h2 className="text-lg md:text-xl font-bold">Total Views: {totalViews}</h2>
-        <h2 className="text-lg md:text-xl font-bold mt-2 md:mt-0">Total Clicks: {totalClicks}</h2>
+        <h2 className="text-lg md:text-xl font-bold mt-2 md:mt-0">Total Clicks: {totalClicks - totalViews}</h2>
       </div>
 
       {/* Job Table */}
