@@ -40,7 +40,7 @@ export default function HomePage() {
           "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=100"
         );
         const wpJobs: WPJob[] = await wpRes.json();
-
+  
         const formattedJobs: Job[] = wpJobs.map((job) => ({
           id: job.id,
           title: job.title.rendered,
@@ -50,18 +50,21 @@ export default function HomePage() {
           featured_image:
             job._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/default-job.png",
         }));
-
-        setJobs(formattedJobs);
-        setFilteredJobs(formattedJobs);
+  
+        const topJobs = formattedJobs.slice(0, 30); // Limit to top 30 jobs
+  
+        setJobs(topJobs);
+        setFilteredJobs(topJobs);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
         setLoading(false);
       }
     }
-
+  
     fetchJobs();
   }, []);
+  
 
   useEffect(() => {
     const filtered = jobs.filter((job) =>
@@ -77,8 +80,11 @@ export default function HomePage() {
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   return (
     <div className="relative">
@@ -114,26 +120,27 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Pagination */}
-      <div className="flex justify-center items-center mt-4 space-x-4">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
-          onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
+     {/* Pagination */}
+<div className="flex justify-center items-center mt-4 space-x-4">
+  <button
+    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
+    onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+    disabled={currentPage === 1}
+  >
+    Previous
+  </button>
 
-        <span className="text-md">Page {currentPage} of {totalPages}</span>
+  <span className="text-md">Page {currentPage} of {totalPages}</span>
 
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
-          onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+  <button
+    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
+    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+    disabled={currentPage === totalPages}
+  >
+    Next
+  </button>
+</div>
+
     </div>
   );
 }
