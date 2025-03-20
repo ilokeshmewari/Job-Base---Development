@@ -26,16 +26,15 @@ type WPJob = {
 export default function HomePage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
-  const [displayedJobs, setDisplayedJobs] = useState<Job[]>([]);
-  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const jobsPerPage = 10;
 
   useEffect(() => {
     async function fetchJobs() {
       try {
         const wpRes = await fetch(
-          "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed"
+          "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=100"
         );
         const wpJobs: WPJob[] = await wpRes.json();
 
@@ -49,34 +48,35 @@ export default function HomePage() {
             job._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/default-job.png",
         }));
 
-        formattedJobs.sort((a, b) => {
-          const dateA = new Date(a.posted_date).getTime();
-          const dateB = new Date(b.posted_date).getTime();
-          return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
-        });
-
-        setJobs(formattedJobs.slice(0, 50));
-        setFilteredJobs(formattedJobs.slice(0, 50));
-        setDisplayedJobs(formattedJobs.slice(0, visibleCount));
+        setJobs(formattedJobs);
+        setFilteredJobs(formattedJobs);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
     }
 
     fetchJobs();
-  }, [sortOrder]);
+  }, []);
 
   useEffect(() => {
     const filtered = jobs.filter((job) =>
       job.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredJobs(filtered);
-    setDisplayedJobs(filtered.slice(0, visibleCount));
-  }, [searchQuery, jobs, visibleCount]);
+  }, [searchQuery, jobs]);
+
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="relative">
-
       <div className="flex justify-between items-center py-4 px-1 lg:px-4 border-b">
         <input
           type="text"
@@ -85,21 +85,12 @@ export default function HomePage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-
-        <select
-          className="p-2 border rounded"
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value as "newest" | "oldest")}
-        >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-        </select>
       </div>
 
       <div className="flex gap-4 mt-4">
         <div className="w-full lg:w-[70%] lg:ml-4 flex flex-col gap-3 cursor-pointer">
-          {displayedJobs.length > 0 ? (
-            displayedJobs.map((job) => <JobCard key={job.id} job={job} />)
+          {currentJobs.length > 0 ? (
+            currentJobs.map((job) => <JobCard key={job.id} job={job} />)
           ) : (
             <p className="text-center text-gray-500">No jobs found.</p>
           )}
@@ -110,18 +101,24 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-4">
-        {visibleCount < filteredJobs.length && (
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => setVisibleCount((prev) => prev + 6)}>
-            Show More
-          </button>
-        )}
+      <div className="flex justify-center mt-4 space-x-4">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
+          onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
 
-        {visibleCount > 6 && (
-          <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4" onClick={() => setVisibleCount(6)}>
-            Show Less
-          </button>
-        )}
+        <span className="text-lg font-semibold">Page {currentPage} of {totalPages}</span>
+
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
+          onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
