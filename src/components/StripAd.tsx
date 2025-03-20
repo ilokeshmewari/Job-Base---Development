@@ -2,12 +2,15 @@ import { useEffect, useRef, useState } from "react";
 
 const StripAd = () => {
   const adContainerRef = useRef<HTMLDivElement | null>(null);
-  const [isAdVisible ] = useState(true);
+  const [isAdVisible, setIsAdVisible] = useState(true);
 
   useEffect(() => {
     if (!isAdVisible || !adContainerRef.current) return;
 
     console.log("Initializing Adsterra Ad...");
+
+    // Clear previous ad content
+    adContainerRef.current.innerHTML = "";
 
     // Define global Adsterra options
     Object.assign(globalThis, {
@@ -31,12 +34,22 @@ const StripAd = () => {
 
     return () => {
       console.log("Removing Adsterra script...");
-      adContainerRef.current && (adContainerRef.current.innerHTML = ""); // Cleanup
+      if (adContainerRef.current) {
+        adContainerRef.current.innerHTML = ""; // Cleanup on unmount
+      }
     };
   }, [isAdVisible]);
 
   return isAdVisible ? (
     <div className="relative flex justify-center items-center my-4">
+      {/* Close Button */}
+      <button
+        onClick={() => setIsAdVisible(false)}
+        className="absolute top-0 right-2 bg-black/50 text-white px-2 py-1 text-xs rounded"
+      >
+        ✖
+      </button>
+
       {/* Ad Container */}
       <div
         ref={adContainerRef}
