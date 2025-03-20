@@ -58,7 +58,7 @@ export default function Recommendation() {
   if (!recommendedJob) return null;
 
   return (
-    <div className="bg-gray-200 border-l-4 border-black/60 p-4 rounded-lg shadow-md my-6">
+    <div className="bg-gray-50 border-l-4 border-black/60 p-4 rounded-lg shadow-md my-6">
       <h2 className="text-lg font-semibold text-gray-800">
       Most users applying
       </h2>
