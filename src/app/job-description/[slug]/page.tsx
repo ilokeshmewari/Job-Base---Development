@@ -91,7 +91,7 @@ export default function JobDescriptionPage() {
       } catch (err) {
         console.error("Error updating views:", err);
       }
-    }, 15000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [slug]);

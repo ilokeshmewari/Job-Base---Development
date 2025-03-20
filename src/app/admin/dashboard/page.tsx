@@ -91,7 +91,7 @@ export default function AdminDashboard() {
                   <tr key={index} className="border-b hover:bg-gray-100">
                     <td className="py-2 px-3 border">{job.title}</td>
                     <td className="py-2 px-3 border text-center">{job.views}</td>
-                    <td className="py-2 px-3 border text-center">{job.clicks}</td>
+                    <td className="py-2 px-3 border text-center">{Math.max(job.clicks - job.views, 0)}</td>
                   </tr>
                 ))
               ) : (
