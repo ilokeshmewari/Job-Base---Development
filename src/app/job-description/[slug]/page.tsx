@@ -9,7 +9,6 @@ import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
 import Recommendation from "@/components/Recommendation";
 import NativeBanner from "@/components/NativeBanner";
 import StripAd from "@/components/StripAd";
-import SmallAdStrip from "@/components/SmallAdStrip";
 
 
 interface Job {
@@ -218,10 +217,10 @@ export default function JobDescriptionPage() {
       {/* ✅ Show AdPopup after 5 seconds */}
       {showAd && <AdPopup />}
 
-      <div className="bg-gray-100 p-2 mb-2 rounded-md block sm:hidden">
+     {/** <div className="bg-gray-100 p-2 mb-2 rounded-md block sm:hidden">
       <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
         <SmallAdStrip />
-      </div>
+      </div> */}
 
       <div className="bg-gray-100 p-2 mb-2 rounded-md hidden sm:block">
       <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
