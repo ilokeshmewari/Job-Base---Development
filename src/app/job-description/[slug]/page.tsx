@@ -6,6 +6,7 @@ import { MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
 import AdPopup from "@/components/AdPopup";
 import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
+import Recommendation from "@/components/Recommendation";
 
 interface Job {
   title: string;
@@ -207,6 +208,10 @@ export default function JobDescriptionPage() {
 
       {/* ✅ Show AdPopup after 5 seconds */}
       {showAd && <AdPopup />}
+
+      <div>
+        <Recommendation />
+      </div>
     </div>
   );
 }
