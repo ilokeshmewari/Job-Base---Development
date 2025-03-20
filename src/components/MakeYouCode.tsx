@@ -2,10 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Info } from "lucide-react";
 
 export default function AdBanner() {
   return (
-    <div className="bg-slate-200 p-6 flex flex-col h-full justify-around items-center text-center w-full mx-auto">
+    <div className="relative bg-gray-100 p-6 flex flex-col h-full justify-around items-center text-center w-full mx-auto rounded-md shadow">
+      {/* Sponsored Label */}
+      <div className="absolute top-2 right-2 flex items-center text-xs text-gray-600">
+        <Info className="w-3 h-3 mr-1 text-black" />
+        <span className="text-black">Sponsored</span>
+      </div>
+
       {/* Logo */}
       <Image
         src="https://bikasjfxwokxjqwledqb.supabase.co/storage/v1/object/public/codeews/logo.png"
@@ -16,12 +23,11 @@ export default function AdBanner() {
       />
 
       {/* Description */}
-      {/* <h1 className="text-2xl font-bold text-blue-900 mt-4">MakeYouCode</h1> */}
       <p className="text-xl text-gray-700 mt-2 text-left">
-      Learn DSA, Web Development, Competitive Programming,  
-      prepare for placements, practice coding, and get certified!
-      <br />
-      An all-in-one platform for beginners.
+        Learn DSA, Web Development, Competitive Programming,  
+        prepare for placements, practice coding, and get certified!
+        <br />
+        An all-in-one platform for beginners.
       </p>
 
       {/* Visit Button */}
