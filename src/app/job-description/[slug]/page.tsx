@@ -137,7 +137,7 @@ export default function JobDescriptionPage() {
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-[60vh] px-4">
-        <p className="text-gray-500 text-lg text-center">Loading job details...</p>
+        <p className="text-gray-500 text-md text-center">Loading job details...</p>
       </div>
     );
 
