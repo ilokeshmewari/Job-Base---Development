@@ -7,7 +7,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <nav className="flex justify-between items-center px-4 py-2 sm:px-16 sm:py-4 border-b bg-white shadow-md">
+    <nav className="flex justify-between items-center px-4 py-2 sm:px-16 sm:py-4 border-b bg-white shadow-sm">
       <div className="text-xl flex items-center justify-center font-bold cursor-pointer" onClick={() => router.push("/")}> 
         JOB BASE<span className="text-green-500 text-4xl relative bottom-[5px]">.</span>
       </div>

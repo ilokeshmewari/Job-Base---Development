@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
 import Recommendation from "@/components/Recommendation";
 import NativeBanner from "@/components/NativeBanner";
 import StripAd from "@/components/StripAd";
+import ResumeReview from "@/components/ResumeReview";
 
 
 interface Job {
@@ -205,7 +206,7 @@ export default function JobDescriptionPage() {
 
       <div className="bg-gray-100 p-2 mb-2 rounded-md">
         <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
-        <NativeBanner />
+        <AdPopup />
       </div>
 
       {/* ✅ Formatted WP Content */}
@@ -215,21 +216,14 @@ export default function JobDescriptionPage() {
       />
 
       {/* ✅ Show AdPopup after 5 seconds */}
-      {showAd && <AdPopup />}
+      {/**{showAd && <AdPopup />} */}
 
-     {/** <div className="bg-gray-100 p-2 mb-2 rounded-md block sm:hidden">
+      {/** <div className="bg-gray-100 p-2 mb-2 rounded-md block sm:hidden">
       <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
         <SmallAdStrip />
       </div> */}
 
-      <div className="bg-gray-100 p-2 mb-2 rounded-md hidden sm:block">
-      <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
-        <StripAd />
-      </div>
-
-      <div>
-        <Recommendation />
-      </div>
+      <ResumeReview />
 
     </div>
   );
