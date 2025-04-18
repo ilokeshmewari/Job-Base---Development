@@ -24,7 +24,7 @@ const Home = () => {
 
       {/* DSA Sheet Promotional Section */}
       <div className="relative bg-gradient-to-br from-purple-50 to-white border border-purple-200 rounded-2xl shadow-sm p-6 my-8 max-w-md mx-auto text-center">
-        <div className="bg-white rounded-xl p-6 text-center">
+        <div className="rounded-xl p-6 text-center">
           {/* Promo Badge */}
           <div className="absolute top-0 right-0 -mt-3 -mr-3 bg-pink-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
             GET IT FOR FREE
