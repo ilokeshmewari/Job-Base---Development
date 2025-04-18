@@ -5,10 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
 import AdPopup from "@/components/AdPopup";
-import { supabase } from "@/lib/supabase"; // ✅ Import Supabase
-import Recommendation from "@/components/Recommendation";
-import NativeBanner from "@/components/NativeBanner";
-import StripAd from "@/components/StripAd";
+import { supabase } from "@/lib/supabase";
 import ResumeReview from "@/components/ResumeReview";
 
 
@@ -30,7 +27,6 @@ export default function JobDescriptionPage() {
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const [showAd, setShowAd] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchJob() {
@@ -100,14 +96,6 @@ export default function JobDescriptionPage() {
 
     return () => clearTimeout(timer);
   }, [slug]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowAd(true);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
 
   // ✅ Increase clicks when user clicks anywhere on the page
