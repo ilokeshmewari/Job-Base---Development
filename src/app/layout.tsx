@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import NoticeStrip from "@/components/NoticeStrip";
+import { Analytics } from '@vercel/analytics/next';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 
@@ -17,6 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <main className="flex-grow container mx-auto p-4">{children}</main>
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   );
