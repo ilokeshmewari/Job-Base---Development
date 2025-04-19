@@ -1,23 +1,24 @@
-import React from "react";
+// components/InternshipStrip.js
+import React from 'react';
 
-const NoticeStrip = () => {
+const InternshipStrip = () => {
   return (
-    <div className="w-full bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white py-2 overflow-hidden">
-      <div className="whitespace-nowrap animate-marquee px-4">
-      Sorry for any inconvenience caused. Our goal is to provide you with the best possible experience on this platform. We are currently working on improvements and have removed ads that may have disrupted your experience. Thank you for your patience and understanding.
+    <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-3">
+      <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
+        <p className="text-sm sm:text-base font-medium text-left">
+          Apply now for remote paid internships and kickstart your career!
+        </p>
+        <a
+          href="https://cuvette.tech/jobs/internships?referralCode=29T9WH"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm sm:text-base bg-white text-purple-700 font-semibold px-4 py-2 rounded hover:bg-purple-100 transition whitespace-nowrap"
+        >
+          Apply
+        </a>
       </div>
     </div>
   );
 };
 
-export default NoticeStrip;
-
-// Add this to your global CSS (e.g., styles/globals.css or tailwind.config.js via plugin)
-// to define the marquee animation
-/*
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-*/
+export default InternshipStrip;

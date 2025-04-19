@@ -26,7 +26,7 @@ export default function ResumeReview() {
       </Link>
 
       <p className="text-xs text-gray-500 mt-3 italic">
-        ✨ Free for first-time users only. Don{`'`}t miss out!
+        ✨ Get is for <span className="line-through text-red-300">₹99</span> ₹49 only. Don{`'`}t miss out!
       </p>
     </div>
   );
