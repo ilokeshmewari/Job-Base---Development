@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import NoticeStrip from "@/components/NoticeStrip";
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 
@@ -19,6 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Footer />
         </div>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
