@@ -74,7 +74,7 @@ export default function ShortUrlRedirect() {
           <label className="block text-sm font-medium mb-1">Original URL</label>
           <input
             type="url"
-            placeholder="https://unstop.com/job/..."
+            placeholder="https://xyz.com/job/..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             required
