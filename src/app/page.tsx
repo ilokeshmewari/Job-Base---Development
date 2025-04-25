@@ -37,7 +37,7 @@ export default function HomePage() {
       try {
         setLoading(true);
         const wpRes = await fetch(
-          "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=100"
+          "https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=25"
         );
         const wpJobs: WPJob[] = await wpRes.json();
   
@@ -51,7 +51,7 @@ export default function HomePage() {
             job._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/default-job.png",
         }));
   
-        const topJobs = formattedJobs.slice(0, 30); // Limit to top 30 jobs
+        const topJobs = formattedJobs.slice(0, 25); // Limit to top 30 jobs
   
         setJobs(topJobs);
         setFilteredJobs(topJobs);
