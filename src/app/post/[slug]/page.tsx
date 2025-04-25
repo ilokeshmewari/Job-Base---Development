@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
 export default function RedirectPage() {
   const params = useParams();
-  const router = useRouter();
   const slug = params?.slug as string;
   const [error, setError] = useState<string | null>(null);
 
