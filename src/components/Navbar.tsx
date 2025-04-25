@@ -12,6 +12,9 @@ export default function Navbar() {
         className="flex items-center justify-center cursor-pointer"
         onClick={() => router.push("/")}
       >
+        {/**<div className="text-xl flex items-center justify-center font-bold cursor-pointer" onClick={() => router.push("/")}> 
+        JOB BASE<span className="text-green-500 text-4xl relative bottom-[5px]">.</span>
+      </div> */}
         <img
           src="/logo-ani.gif"
           alt="Job Base Logo"
