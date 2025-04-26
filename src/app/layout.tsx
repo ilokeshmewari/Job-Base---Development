@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        
+        <title>Job Base Community {`-`} Helping You Land Your Dream Job</title>
       </head>
       <body>
         <div className="flex flex-col min-h-screen">
