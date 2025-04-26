@@ -11,7 +11,6 @@ export default function RedirectPage() {
   const [secondsLeft, setSecondsLeft] = useState<number>(10);
 
   useEffect(() => {
-    // Create Monetag script element
     const script = document.createElement('script');
     script.src = 'https://ligheechoagool.com/88/tag.min.js';
     script.async = true;
@@ -42,7 +41,7 @@ export default function RedirectPage() {
           setSecondsLeft((prev) => {
             if (prev === 1) {
               clearInterval(countdownInterval);
-              window.location.href = data.url; // Redirect when timer reaches 0
+              window.location.href = data.url;
             }
             return prev - 1;
           });
@@ -62,7 +61,7 @@ export default function RedirectPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-gray-600 space-y-4">
+    <div className="min-h-[500px] sm:min-h-[550px] flex flex-col items-center justify-center text-gray-600 space-y-4">
       <div className="text-lg font-medium">Redirecting to job...</div>
 
       {/* Loading spinner */}
