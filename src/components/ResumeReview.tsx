@@ -19,7 +19,7 @@ export default function ResumeReview() {
         Get expert feedback on your resume and stand out from the crowd.
       </p>
 
-      <Link href="https://topmate.io/ilokeshmewari/1473678">
+      <Link href="https://topmate.io/job_base/1521812">
         <button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300">
           Get Resume Review
         </button>
