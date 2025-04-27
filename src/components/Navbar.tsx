@@ -16,9 +16,9 @@ export default function Navbar() {
         JOB BASE<span className="text-green-500 text-4xl relative bottom-[5px]">.</span>
       </div> */}
         <img
-          src="/logo-ani.gif"
+          src="/logo-ani1.gif"
           alt="Job Base Logo"
-          className="h-8" // Adjust the height as needed
+          className="h-[35px]" // Adjust the height as needed
         />
       </div>
       <div className="flex items-center gap-4">
