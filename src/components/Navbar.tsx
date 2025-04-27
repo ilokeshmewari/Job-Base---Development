@@ -18,7 +18,7 @@ export default function Navbar() {
         <img
           src="/logo-ani1.gif"
           alt="Job Base Logo"
-          className="h-[35px]" // Adjust the height as needed
+          className="h-[30px]" // Adjust the height as needed
         />
       </div>
       <div className="flex items-center gap-4">
