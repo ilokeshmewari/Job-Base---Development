@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Sitemap = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-lg sm:text-3xl font-bold text-purple-600 mb-10">Sitemap</h1>
 
