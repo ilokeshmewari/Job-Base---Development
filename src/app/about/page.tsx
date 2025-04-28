@@ -13,7 +13,7 @@ const About = () => {
         <p className="text-sm sm:text-lg text-gray-700 mb-4">
           At JobBase.site, we strive to:
         </p>
-        <ul className="list-disc list-inside text-sm text-gray-700 mb-6 space-y-2">
+        <ul className="list-disc list-inside text-sm sm:text-lg text-gray-700 mb-6 space-y-2">
           <li>Deliver verified and up-to-date job openings from reputable companies.</li>
           <li>Share internship opportunities to help students and fresh graduates gain valuable experience.</li>
           <li>Provide career guidance and industry insights to assist professionals in making informed decisions.</li>
