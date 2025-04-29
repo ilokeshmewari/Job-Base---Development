@@ -12,7 +12,6 @@ import {
   MessageCircleMore,
   Send,
 } from 'lucide-react';
-import Link from 'next/link';
 
 export default function HeroSection() {
   const TARGET_MEMBERS = 2000;

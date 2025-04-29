@@ -44,14 +44,6 @@ export default function LandingPage() {
     }
   }, [search, jobs]);
 
-  const decodeHtml = (html: string) => {
-    if (typeof window === 'undefined') return html; // Prevent server-side issues
-    const txt = document.createElement('textarea');
-    txt.innerHTML = html;
-    return txt.value;
-  };
-
-
   const getPlainExcerpt = (html: string, limit = 80) => {
     const tempElement = document.createElement('div');
     tempElement.innerHTML = html;
