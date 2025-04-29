@@ -50,7 +50,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="bg-[#f9fbfc] py-16 px-4 text-center">
+    <section className="bg-[#f9fbfc] py-7 sm:py-16 px-4 text-center">
       <h2 className="text-4xl font-bold text-black mb-4">
         Join Our Growing Community
       </h2>

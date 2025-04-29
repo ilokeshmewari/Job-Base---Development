@@ -7,7 +7,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <nav className="flex justify-between items-center px-4 py-2 sm:px-16 sm:py-4 border-b bg-white shadow-sm">
+    <nav className="flex justify-between items-center px-4 py-3 sm:px-16 sm:py-4 border-b bg-white shadow-sm">
       <div
         className="flex items-center justify-center cursor-pointer"
         onClick={() => router.push("/")}
@@ -18,7 +18,7 @@ export default function Navbar() {
         <img
           src="/logo-ani1.gif"
           alt="Job Base Logo"
-          className="h-[30px]" // Adjust the height as needed
+          className="h-[34px]" // Adjust the height as needed
         />
       </div>
       <div className="flex items-center gap-4">
