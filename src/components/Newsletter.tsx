@@ -47,7 +47,7 @@ const NewsletterSection = () => {
             <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
             <div>
               <p className="font-semibold text-sm text-gray-900">Success</p>
-              <p className="text-sm text-gray-600">You've successfully subscribed to the newsletter.</p>
+              <p className="text-sm text-gray-600">You{`'`}ve successfully subscribed to the newsletter.</p>
             </div>
           </div>
 
