@@ -100,7 +100,7 @@ export default function LandingPage() {
               key={job.id}
               className="bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col h-full"
             >
-              <div className="h-32 bg-gray-100">
+              <div className="h-40 bg-gray-100">
                 {job._embedded?.['wp:featuredmedia']?.[0]?.source_url ? (
                   <img
                     src={job._embedded['wp:featuredmedia'][0].source_url}
