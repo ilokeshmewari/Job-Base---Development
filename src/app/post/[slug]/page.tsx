@@ -8,20 +8,7 @@ export default function RedirectPage() {
   const params = useParams();
   const slug = params?.slug as string;
   const [error, setError] = useState<string | null>(null);
-  const [secondsLeft, setSecondsLeft] = useState<number>(10);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://ligheechoagool.com/88/tag.min.js';
-    script.async = true;
-    script.dataset.zone = '132627';
-    script.setAttribute('data-cfasync', 'false');
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  const [secondsLeft, setSecondsLeft] = useState<number>(5);
 
   useEffect(() => {
     if (!slug) return;
@@ -62,18 +49,19 @@ export default function RedirectPage() {
 
   return (
     <div className="min-h-[500px] sm:min-h-[550px] flex flex-col items-center justify-center text-gray-600 space-y-4">
-      <div className="text-lg font-medium">Redirecting to job...</div>
+      <div className="text-lg font-medium">Redirecting...</div>
 
-      {/* Loading spinner */}
-      <div className="w-10 h-10 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+      {/* Gradient loading spinner */}
+      <div className="w-10 h-10 flex justify-center items-center rounded-full animate-spin bg-gradient-to-tr from-violet-600 via-purple-500 to-purple-400 p-[3px]">
+        <div className="w-full h-full rounded-full bg-white"></div>
+      </div>
+
 
       {/* Countdown timer */}
       <div className="text-sm text-gray-400">
         Please wait, you&apos;ll be redirected in {secondsLeft} seconds.
       </div>
 
-      {/* Placeholder for ad */}
-      <div id="monetag-ad" className="mt-6 w-full flex justify-center" />
     </div>
   );
 }
