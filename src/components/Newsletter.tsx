@@ -6,31 +6,31 @@ import { CheckCircle } from "lucide-react";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("Submit");
+  const [status, setStatus] = useState("Subscribe");
   const [showToast, setShowToast] = useState(false);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!email) return;
 
-    setStatus("Submitting...");
+    setStatus("Subcribing...");
 
     try {
       const { error } = await supabase.from("newsletters").insert([{ email }]);
 
       if (error) throw error;
 
-      setStatus("Submitted");
+      setStatus("Subscribed");
       setEmail("");
       setShowToast(true);
 
       setTimeout(() => {
         setShowToast(false);
-        setStatus("Submit");
+        setStatus("Subscribe");
       }, 3000);
     } catch (error) {
       console.error("Error submitting email:", error);
-      setStatus("Submit");
+      setStatus("Subscribe");
     }
   };
 
@@ -66,10 +66,10 @@ const NewsletterSection = () => {
 
       <section className="bg-gray-100 py-12 px-4 mt-6">
         <div className="max-w-5xl mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900">
             Stay Updated!
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl">
+          <p className="text-gray-600 text-base sm:text-md max-w-2xl">
             Subscribe to our newsletter for the latest insights, updates, and trending stories from the tech world.
           </p>
 
@@ -88,7 +88,7 @@ const NewsletterSection = () => {
             <button
               type="submit"
               className="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white font-medium rounded-lg shadow-md hover:bg-purple-700 transition disabled:opacity-60"
-              disabled={status === "Submitting..."}
+              disabled={status === "Subscribing..."}
             >
               {status}
             </button>
