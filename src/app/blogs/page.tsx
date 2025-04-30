@@ -25,8 +25,6 @@ interface Category {
 
 export default function BlogsPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -39,10 +37,6 @@ export default function BlogsPage() {
         setPosts(data);
         setLoading(false);
       });
-
-    fetch('https://jobbase.codeews.site/wp-json/wp/v2/categories')
-      .then(res => res.json())
-      .then(data => setCategories(data));
   }, []);
 
   // Helper function to clean HTML excerpt
