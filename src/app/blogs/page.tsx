@@ -18,11 +18,6 @@ interface BlogPost {
   };
 }
 
-interface Category {
-  id: number;
-  name: string;
-}
-
 export default function BlogsPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
