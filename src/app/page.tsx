@@ -27,7 +27,7 @@ export default function LandingPage() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch('https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=6')
+    fetch('https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=6&categories_exclude=7')
       .then(res => res.json())
       .then(data => setJobs(data));
   }, []);
@@ -49,7 +49,7 @@ export default function LandingPage() {
     tempElement.innerHTML = html;
     const decoded = tempElement.textContent || tempElement.innerText || '';
     const cleanText = decoded.trim().replace(/[.…\s]*$/, ''); // remove trailing dots or ellipsis
-  
+
     return cleanText.length > limit ? cleanText.slice(0, limit) + '...' : cleanText;
   };
 

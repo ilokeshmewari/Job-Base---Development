@@ -1,19 +1,19 @@
-// app/see-all-jobs/page.tsx
+// app/blogs/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-interface JobPost {
+interface BlogPost {
   id: number;
   title: { rendered: string };
   slug: string;
-  excerpt: { rendered: string };
+  excerpt: { rendered: string }; 
   categories: number[];
   date: string;
   featured_media: number;
   _embedded?: {
-    'wp:featuredmedia'?: { source_url: string }[];
+    'wp:featuredmedia'?: { source_url: string }[]; 
     'wp:term'?: { name: string; id: number }[][];
   };
 }
@@ -23,21 +23,20 @@ interface Category {
   name: string;
 }
 
-export default function SeeAllJobsPage() {
-  const [jobs, setJobs] = useState<JobPost[]>([]);
-  const [filteredJobs, setFilteredJobs] = useState<JobPost[]>([]);
+export default function BlogsPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  // Fetch blog posts related to Category ID 7 (Blog)
   useEffect(() => {
     setLoading(true);
-    fetch('https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=30&categories_exclude=7')
+    fetch('https://jobbase.codeews.site/wp-json/wp/v2/posts?_embed&per_page=30&categories=7')  // Filter by category ID 7
       .then(res => res.json())
       .then(data => {
-        setJobs(data);
-        setFilteredJobs(data);
+        setPosts(data);
         setLoading(false);
       });
 
@@ -46,14 +45,7 @@ export default function SeeAllJobsPage() {
       .then(data => setCategories(data));
   }, []);
 
-  useEffect(() => {
-    if (selectedCategory) {
-      setFilteredJobs(jobs.filter(job => job.categories.includes(selectedCategory)));
-    } else {
-      setFilteredJobs(jobs);
-    }
-  }, [selectedCategory, jobs]);
-
+  // Helper function to clean HTML excerpt
   const getPlainExcerpt = (html: string, limit = 80) => {
     const tempElement = document.createElement('div');
     tempElement.innerHTML = html;
@@ -62,46 +54,23 @@ export default function SeeAllJobsPage() {
     return cleanText.length > limit ? cleanText.slice(0, limit) + '...' : cleanText;
   };
 
-
   return (
     <section className="min-h-screen px-1 py-3 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold mb-4">All Job Listings</h2>
-
-      {/* Categories Filter */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        <button
-          onClick={() => setSelectedCategory(null)}
-          className={`px-4 py-2 rounded-md border ${selectedCategory === null ? 'bg-black text-white' : 'bg-white'}`}
-        >
-          All
-        </button>
-        {categories
-          .filter(cat => cat.id !== 7) // exclude category with ID 7
-          .map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-md border ${selectedCategory === cat.id ? 'bg-black text-white' : 'bg-white'}`}
-            >
-              {cat.name}
-            </button>
-          ))}
-
-      </div>
+      <h2 className="text-3xl font-bold mb-4">All Blog Posts</h2>
 
       {loading ? (
-        <div className="text-center text-lg text-gray-600 py-12">Loading jobs...</div>
+        <div className="text-center text-lg text-gray-600 py-12">Loading posts...</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {filteredJobs.map(job => (
+          {posts.map(post => (
             <div
-              key={job.id}
+              key={post.id}
               className="bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col h-full"
             >
               <div className="h-40 bg-gray-100">
-                {job._embedded?.['wp:featuredmedia']?.[0]?.source_url ? (
+                {post._embedded?.['wp:featuredmedia']?.[0]?.source_url ? (
                   <img
-                    src={job._embedded['wp:featuredmedia'][0].source_url}
+                    src={post._embedded['wp:featuredmedia'][0].source_url}
                     alt="Featured"
                     className="w-full h-full object-cover"
                   />
@@ -115,18 +84,18 @@ export default function SeeAllJobsPage() {
               <div className="p-4 flex flex-col flex-grow">
                 <h3
                   className="text-xl font-semibold mb-1 line-clamp-1"
-                  dangerouslySetInnerHTML={{ __html: job.title.rendered }}
+                  dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                 ></h3>
                 <div className="text-sm text-gray-500 mb-2 line-clamp-1">
-                  {job._embedded?.['wp:term']?.[0]?.[0]?.name || 'Uncategorized'} · {`Job Base`}
+                  {post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Uncategorized'} · {`Job Base`}
                 </div>
-                <p className="text-gray-600 mb-4">{getPlainExcerpt(job.excerpt.rendered)}</p>
+                <p className="text-gray-600 mb-4">{getPlainExcerpt(post.excerpt.rendered)}</p>
                 <div className="mt-auto">
                   <button
-                    onClick={() => router.push(`/job-description/${job.slug}`)}
-                    className="w-full bg-black text-white py-2 rounded-md hover:from-purple-600 hover:to-purple-800 transition"
+                    onClick={() => router.push(`/blogs/read/${post.slug}`)}
+                    className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-700"
                   >
-                    Apply Now
+                    Read More
                   </button>
                 </div>
               </div>
