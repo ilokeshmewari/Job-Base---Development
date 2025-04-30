@@ -66,10 +66,10 @@ const NewsletterSection = () => {
 
       <section className="bg-gray-100 py-12 px-4 mt-6">
         <div className="max-w-5xl mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Stay Updated!
           </h2>
-          <p className="text-gray-600 text-base sm:text-md max-w-2xl">
+          <p className="text-gray-600 text-base sm:text-lg max-w-2xl">
             Subscribe to our newsletter for the latest insights, updates, and trending stories from the tech world.
           </p>
 
