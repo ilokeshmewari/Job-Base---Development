@@ -107,7 +107,7 @@ export default function HeroSection() {
         <a href="https://chat.whatsapp.com/DXZJsmey0UlCqVdD2ztEbK" target="_blank" rel="noopener noreferrer">
           <MessageCircleMore className="w-6 h-6 text-green-500 hover:text-green-600" />
         </a>
-        <a href="https://t.me/jobbasegroup" target="_blank" rel="noopener noreferrer">
+        <a href="https://t.me/jobbase_25" target="_blank" rel="noopener noreferrer">
           <Send className="w-6 h-6 text-sky-500 hover:text-sky-600" />
         </a>
       </div>

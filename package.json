@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@genkit-ai/googleai": "^1.7.0",
+    "@google/generative-ai": "^0.24.1",
     "@react-oauth/google": "^0.12.1",
     "@supabase/supabase-js": "^2.48.1",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "axios": "^1.9.0",
     "google-one-tap": "^1.0.6",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
