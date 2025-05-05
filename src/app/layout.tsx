@@ -29,6 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* Botpress Webchat Initialization Script using Next.js Script component */}
         <Script
+          id="botp-three"
           strategy="afterInteractive" // Ensures the script runs after the page is interactive
           dangerouslySetInnerHTML={{
             __html: `
