@@ -17,12 +17,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Script
           type="text/javascript"
           src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"
-          strategy="afterInteractive" // Ensures the script is loaded after the page is interactive
+          strategy="afterInteractive"
+          id="botp" // Ensures the script is loaded after the page is interactive
         />
         <Script
           type="text/javascript"
           src="https://files.bpcontent.cloud/2025/05/05/10/20250505103317-TS6C1HVN.js"
-          strategy="afterInteractive" // Ensures the script is loaded after the page is interactive
+          strategy="afterInteractive"
+          id="botp-two" // Ensures the script is loaded after the page is interactive
         />
 
         {/* Botpress Webchat Initialization Script using Next.js Script component */}
