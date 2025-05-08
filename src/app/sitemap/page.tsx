@@ -27,6 +27,15 @@ const Sitemap = () => {
               <li>
                 <Link href="/privacy-policy" className="text-blue-500 hover:underline">Privacy Policy</Link>
               </li>
+              <li>
+                <Link href="/see-all-jobs" className="text-blue-500 hover:underline">See All Jobs</Link>
+              </li>
+              <li>
+                <Link href="/blogs" className="text-blue-500 hover:underline">Blogs</Link>
+              </li>
+              <li>
+                <Link href="/feedback" className="text-blue-500 hover:underline">Feedbacks</Link>
+              </li>
             </ul>
           </div>
 
