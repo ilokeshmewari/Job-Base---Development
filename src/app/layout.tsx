@@ -16,34 +16,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="38b9a9cdc118707cf5b1a41144b3e3bb385dea7a" content="38b9a9cdc118707cf5b1a41144b3e3bb385dea7a" />
         <meta name="referrer" content="no-referrer-when-downgrade" />
 
-        {/* Botpress Webchat Scripts using Next.js Script component */}
-        <Script
-          type="text/javascript"
-          src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"
-          strategy="afterInteractive"
-          id="botp" // Ensures the script is loaded after the page is interactive
-        />
-        <Script
-          type="text/javascript"
-          src="https://files.bpcontent.cloud/2025/05/05/10/20250505103317-TS6C1HVN.js"
-          strategy="afterInteractive"
-          id="botp-two" // Ensures the script is loaded after the page is interactive
-        />
-
-        {/* Botpress Webchat Initialization Script using Next.js Script component */}
-        <Script
-          id="botp-three"
-          strategy="afterInteractive" // Ensures the script runs after the page is interactive
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.botpressWebChat.init({
-                botId: 'TS6C1HVN', // Replace with your bot ID if needed
-                hostUrl: 'https://cdn.botpress.cloud', // Your Botpress Cloud URL
-                // You can add more configurations here (like colors, title, etc.)
-              });
-            `,
-          }}
-        />
+         <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" async></script>
+      
       </head>
       <body>
         <div className="flex flex-col min-h-screen">

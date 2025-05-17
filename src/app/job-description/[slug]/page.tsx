@@ -7,6 +7,8 @@ import Link from "next/link";
 import AdPopup from "@/components/AdPopup";
 import { supabase } from "@/lib/supabase";
 import ResumeReview from "@/components/ResumeReview";
+import Hiltopads from "@/components/hiltopads"
+import Hiltoptwo from "@/components/Hiltoptwo"
 
 
 interface Job {
@@ -197,6 +199,10 @@ export default function JobDescriptionPage() {
         <AdPopup />
       </div>
 
+      <div>
+      <Hiltoptwo />
+      </div>
+
       {/* ✅ Formatted WP Content */}
       <div
         className="wp-content prose max-w-full text-gray-800 leading-relaxed text-sm sm:text-base"
@@ -211,8 +217,9 @@ export default function JobDescriptionPage() {
         <SmallAdStrip />
       </div> */}
 
-      <ResumeReview />
+      <Hiltopads />
 
+      <ResumeReview />
 
     </div>
   );
