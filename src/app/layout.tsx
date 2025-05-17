@@ -13,6 +13,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <title>Job Base Community {`-`} Helping You Land Your Dream Job</title>
 
+        <meta name="38b9a9cdc118707cf5b1a41144b3e3bb385dea7a" content="38b9a9cdc118707cf5b1a41144b3e3bb385dea7a" />
+        <meta name="referrer" content="no-referrer-when-downgrade" />
+
         {/* Botpress Webchat Scripts using Next.js Script component */}
         <Script
           type="text/javascript"
