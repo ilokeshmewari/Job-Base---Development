@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
+interface ScriptWithSettings extends HTMLScriptElement {
+  settings?: Record<string, unknown>;
+}
+
 export default function VideoAdScript() {
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -19,14 +23,14 @@ export default function VideoAdScript() {
     if (!isDesktop) return;
 
     const d = document;
-    const s = d.createElement('script');
+    const s = d.createElement('script') as ScriptWithSettings;
     const l = d.scripts[d.scripts.length - 1];
 
     s.src = '//fresh-kind.com/b.XtV/sKdWGFlO0qYkW/cD/heqmX9FuvZnUslokDPiTHYSzcNATHYj3RMUTXYntQN/jdM-1XNHjecCx/N/wy';
     s.async = true;
     s.referrerPolicy = 'no-referrer-when-downgrade';
 
-    (s as any).settings = {};
+    s.settings = {}; // now properly typed
 
     l.parentNode?.insertBefore(s, l);
   }, [isDesktop]);
