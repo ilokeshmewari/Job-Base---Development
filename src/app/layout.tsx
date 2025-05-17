@@ -5,7 +5,6 @@ import NoticeStrip from "@/components/NoticeStrip";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import NewsletterSection from "@/components/Newsletter";
-import Script from "next/script"; // Import Next.js Script component
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
