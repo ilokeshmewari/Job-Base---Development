@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase";
 import ResumeReview from "@/components/ResumeReview";
 import Hiltopads from "@/components/hiltopads"
 import Hiltoptwo from "@/components/Hiltoptwo"
+import VideoAdScript from "@/components/VideoAd";
 
 
 interface Job {
@@ -220,6 +221,7 @@ export default function JobDescriptionPage() {
       <Hiltopads />
 
       <ResumeReview />
+      <VideoAdScript />
 
     </div>
   );
