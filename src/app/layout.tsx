@@ -20,16 +20,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
          <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" async></script>
 
-         {/**ezoic */}
-
-         <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-<script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-
-<Script async src="//www.ezojs.com/ezoic/sa.min.js"></Script>
-<Script>
-    window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
-</Script>
       
       </head>
       <body>
