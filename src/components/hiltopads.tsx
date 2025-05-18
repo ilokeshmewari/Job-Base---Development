@@ -19,7 +19,6 @@ const AdScript = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-                <p className="top-2 left-2 text-[10px] text-gray-700">Ads by Hiltopads Network</p>
       <div ref={adContainerRef} className="w-full flex justify-center" />
     </div>
   );
