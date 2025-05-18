@@ -203,6 +203,8 @@ export default function JobDescriptionPage() {
       <Hiltoptwo />
       </div>
 
+       <div id="ezoic-pub-ad-placeholder-101"></div>
+
       {/* ✅ Formatted WP Content */}
       <div
         className="wp-content prose max-w-full text-gray-800 leading-relaxed text-sm sm:text-base"
