@@ -15,6 +15,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="38b9a9cdc118707cf5b1a41144b3e3bb385dea7a" content="38b9a9cdc118707cf5b1a41144b3e3bb385dea7a" />
         <meta name="referrer" content="no-referrer-when-downgrade" />
 
+        <script type="text/javascript" src="https://s.skimresources.com/js/284945X1771406.skimlinks.js"></script>
+
          <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" async></script>
       
       </head>
