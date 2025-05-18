@@ -195,8 +195,7 @@ export default function JobDescriptionPage() {
         </div>
       </div>
 
-      <div className="bg-gray-100 p-2 mb-2 rounded-md">
-        <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
+      <div className="p-2 mb-2">
         <AdPopup />
       </div>
 

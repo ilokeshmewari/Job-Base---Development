@@ -42,7 +42,7 @@ export default function AdBanner() {
       {/* Ad Content */}
       <div id="ad-container" className="w-full h-full flex items-center justify-center">
         {isLoading && (
-          <p className="text-[12px] text-gray-500">Loading ad...</p>
+          <p className="text-[12px] text-gray-500">Loading...</p>
         )}
       </div>
     </div>
