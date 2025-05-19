@@ -52,7 +52,7 @@ export default function HeroSection() {
   return (
     <section className="bg-[#f9fbfc] py-7 sm:py-16 px-4 text-center">
       <h2 className="text-4xl font-bold text-black mb-4">
-        Join Our Growing Community
+        Join Jobbase Community
       </h2>
       <p className="text-gray-600 max-w-xl mx-auto mb-12">
         We connect students with their dream jobs through personalized hiring alerts and career support

@@ -17,7 +17,7 @@ export default function Navbar() {
       </div> */}
         <img
           src="/logo-ani1.gif"
-          alt="Job Base Logo"
+          alt="Jobbase Logo"
           className="h-[34px]" // Adjust the height as needed
         />
       </div>
