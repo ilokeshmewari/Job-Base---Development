@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import he from "he";
 import { useParams, useRouter } from "next/navigation";
 import { MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
@@ -27,6 +28,8 @@ export default function JobDescriptionPage() {
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [latestJobs, setLatestJobs] = useState<{ slug: string; title: string }[]>([]);
+
 
   useEffect(() => {
     async function fetchJob() {
@@ -61,6 +64,27 @@ export default function JobDescriptionPage() {
 
     fetchJob();
   }, [slug]);
+
+
+  useEffect(() => {
+  async function fetchLatestJobs() {
+    try {
+      const res = await fetch("https://jobbase.codeews.site/wp-json/wp/v2/posts?per_page=10&_fields=slug,title");
+      const data = await res.json();
+
+      const formatted = data.map((item: any) => ({
+        slug: item.slug,
+        title: he.decode(item.title?.rendered || "Untitled"), // ✅ Decode HTML entities
+      }));
+
+      setLatestJobs(formatted);
+    } catch (err) {
+      console.error("Error fetching latest jobs:", err);
+    }
+  }
+
+  fetchLatestJobs();
+}, []);
 
   // ✅ Increase views after 3 seconds
   useEffect(() => {
@@ -209,6 +233,27 @@ export default function JobDescriptionPage() {
       <p className="text-xs text-gray-600 text-center">Ads by Adsterra network</p>
         <SmallAdStrip />
       </div> */}
+
+            {/* ✅ Latest Jobs (plain style, no bullets) */}
+      <div className="my-3">
+        <h2 className="text-xl text-gray-800 leading-relaxed font-bold mb-3">Checkout More Jobs</h2>
+        <div className="space-y-4">
+          {latestJobs
+            .filter((item) => item.slug !== slug)
+            .slice(0, 8)
+            .map((item) => (
+              <p key={item.slug}>
+                <Link
+                  href={`/job-description/${item.slug}`}
+                  className="text-blue-600 hover:underline text-sm sm:text-base"
+                >
+                  {item.title}
+                </Link>
+              </p>
+            ))}
+        </div>
+      </div>
+
 
       <ResumeReview />
 
