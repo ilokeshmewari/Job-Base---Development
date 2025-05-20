@@ -66,15 +66,15 @@ export default function JobDescriptionPage() {
   }, [slug]);
 
 
-  useEffect(() => {
+ useEffect(() => {
   async function fetchLatestJobs() {
     try {
       const res = await fetch("https://jobbase.codeews.site/wp-json/wp/v2/posts?per_page=10&_fields=slug,title");
-      const data = await res.json();
+      const data: { slug: string; title: { rendered: string } }[] = await res.json();
 
-      const formatted = data.map((item: any) => ({
+      const formatted = data.map((item) => ({
         slug: item.slug,
-        title: he.decode(item.title?.rendered || "Untitled"), // ✅ Decode HTML entities
+        title: he.decode(item.title?.rendered || "Untitled"),
       }));
 
       setLatestJobs(formatted);
