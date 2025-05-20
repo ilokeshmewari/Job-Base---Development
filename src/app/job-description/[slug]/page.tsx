@@ -245,7 +245,7 @@ export default function JobDescriptionPage() {
               <p key={item.slug}>
                 <Link
                   href={`/job-description/${item.slug}`}
-                  className="text-blue-600 hover:underline text-sm sm:text-base"
+                  className="text-blue-600 hover:underline text-[1rem] font-medium sm:text-base"
                 >
                   {item.title}
                 </Link>
