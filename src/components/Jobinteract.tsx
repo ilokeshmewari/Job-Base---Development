@@ -15,7 +15,6 @@ type ToastType = 'success' | 'error' | 'login';
 export default function JobInteractionStrip({ slug }: JobInteractionProps) {
   const router = useRouter();
 
-
   const [user, setUser] = useState<User | null>(null);
   const [upvoted, setUpvoted] = useState(false);
   const [upvoteCount, setUpvoteCount] = useState(0);
@@ -23,30 +22,40 @@ export default function JobInteractionStrip({ slug }: JobInteractionProps) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [skillsInput, setSkillsInput] = useState('');
   const [toast, setToast] = useState<{ message: string, type: ToastType, show: boolean }>({ message: '', type: 'success', show: false });
-
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+  // Fetch upvote count for all users
+  const fetchUpvoteCount = async () => {
+    const { count } = await supabase
+      .from('upvotes')
+      .select('*', { count: 'exact' })
+      .eq('slug', slug);
+    setUpvoteCount(count || 0);
+  };
+
+  // Check user's upvote status if logged in
+  const checkUserUpvote = async (userId: string) => {
+    const { data: upvoteData } = await supabase
+      .from('upvotes')
+      .select('*')
+      .eq('slug', slug)
+      .eq('user_id', userId)
+      .single();
+    setUpvoted(!!upvoteData);
+  };
 
   useEffect(() => {
     const checkAuth = async () => {
+      // First fetch upvote count (works for all users)
+      fetchUpvoteCount();
+
+      // Then check if user is logged in
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
 
+      // If user is logged in, check their upvote status
       if (user) {
-        const { data: upvoteData } = await supabase
-          .from('upvotes')
-          .select('*')
-          .eq('slug', slug)
-          .eq('user_id', user.id)
-          .single();
-
-        setUpvoted(!!upvoteData);
-
-        const { count } = await supabase
-          .from('upvotes')
-          .select('*', { count: 'exact' })
-          .eq('slug', slug);
-
-        setUpvoteCount(count || 0);
+        await checkUserUpvote(user.id);
       }
     };
 
@@ -144,7 +153,7 @@ export default function JobInteractionStrip({ slug }: JobInteractionProps) {
 
       {/* Login Prompt Toast */}
       {showLoginPrompt && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-purple-50 border border-purple-500 text-purple-950 px-4 py-3 rounded-md z-[1001] shadow-md">
+        <div className="fixed top-1/2 sm:top-4 left-1/2 transform -translate-x-1/2 bg-purple-50 border border-purple-500 text-purple-950 px-4 py-3 rounded-md z-[1001] shadow-md">
           <p className="mb-2">You need to login to perform this action.</p>
           <div className="flex gap-2 justify-center">
             <button
