@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { FaRegHeart, FaHeart, FaBell } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import { User } from '@supabase/supabase-js';
 
 type JobInteractionProps = {
   slug: string;
@@ -14,7 +15,8 @@ type ToastType = 'success' | 'error' | 'login';
 export default function JobInteractionStrip({ slug }: JobInteractionProps) {
   const router = useRouter();
 
-  const [user, setUser] = useState<any>(null);
+
+  const [user, setUser] = useState<User | null>(null);
   const [upvoted, setUpvoted] = useState(false);
   const [upvoteCount, setUpvoteCount] = useState(0);
   const [loading, setLoading] = useState({ upvote: false, alert: false });
@@ -99,30 +101,30 @@ export default function JobInteractionStrip({ slug }: JobInteractionProps) {
   };
 
   const submitJobAlert = async () => {
-    if (!skillsInput.trim()) return;
+  if (!skillsInput.trim() || !user) return;
 
-    setLoading(prev => ({ ...prev, alert: true }));
+  setLoading(prev => ({ ...prev, alert: true }));
 
-    try {
-      await supabase
-        .from('job_alerts')
-        .insert({
-          user_id: user.id,
-          user_email: user.email,
-          skills: skillsInput,
-          slug
-        });
+  try {
+    await supabase
+      .from('job_alerts')
+      .insert({
+        user_id: user.id,
+        user_email: user.email,
+        skills: skillsInput,
+        slug
+      });
 
-      setModalIsOpen(false);
-      setSkillsInput('');
-      showToast('Job alert request submitted successfully!', 'success');
-    } catch (error) {
-      console.error('Error submitting job alert:', error);
-      showToast('Failed to submit job alert.', 'error');
-    } finally {
-      setLoading(prev => ({ ...prev, alert: false }));
-    }
-  };
+    setModalIsOpen(false);
+    setSkillsInput('');
+    showToast('Job alert request submitted successfully!', 'success');
+  } catch (error) {
+    console.error('Error submitting job alert:', error);
+    showToast('Failed to submit job alert.', 'error');
+  } finally {
+    setLoading(prev => ({ ...prev, alert: false }));
+  }
+};
 
   const confirmLoginRedirect = () => {
     router.push('/auth');
