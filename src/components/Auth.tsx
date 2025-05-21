@@ -140,8 +140,8 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-md">
+    <div className="min-h-screen bg-white flex justify-center">
+      <div className="bg-white p-4 sm:p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800">JobBase</h1>
           <p className="text-gray-600 mt-2">
