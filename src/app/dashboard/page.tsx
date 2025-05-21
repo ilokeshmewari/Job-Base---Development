@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
+      const { data } = await supabase.auth.getSession();
       const session: Session | null = data?.session ?? null;
 
       if (!session) {

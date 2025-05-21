@@ -35,7 +35,7 @@ export default function Auth() {
     getSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event: AuthChangeEvent, session: Session | null) => {
+      async (event: AuthChangeEvent) => {
         if (event === 'PASSWORD_RECOVERY') {
           setMessage({ text: 'Password recovery email sent!', type: 'success' });
         } else if (event === 'USER_UPDATED') {
@@ -137,11 +137,6 @@ export default function Auth() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.reload();
   };
 
   return (
