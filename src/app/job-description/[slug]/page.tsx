@@ -8,6 +8,7 @@ import Link from "next/link";
 import AdPopup from "@/components/AdPopup";
 import { supabase } from "@/lib/supabase";
 import ResumeReview from "@/components/ResumeReview";
+import JobInteractionStrip from "@/components/Jobinteract";
 
 
 interface Job {
@@ -189,8 +190,11 @@ export default function JobDescriptionPage() {
       ></h1>
 
       {/* ✅ Divider */}
-      <hr className="border-gray-300 mb-6" />
+      <hr className="border-gray-300 mb-3" />
 
+      {slug && <JobInteractionStrip slug={slug} />}
+
+      <div className="mb-3"></div>
       {/* ✅ Join Community Section */}
       <div className="flex flex-col items-center justify-center gap-4 p-4 mb-4 bg-gray-100 rounded-2xl">
         <h2 className="text-xl font-semibold">Join Our Community</h2>
@@ -253,7 +257,6 @@ export default function JobDescriptionPage() {
             ))}
         </div>
       </div>
-
 
       <ResumeReview />
 
