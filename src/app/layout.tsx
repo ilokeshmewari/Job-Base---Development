@@ -40,6 +40,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+         {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-DMVB1865TW"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+        >
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){(window.dataLayer || []).push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DMVB1865TW');
+          `}
+        </Script>
         <Script
           id="json-ld"
           type="application/ld+json"
