@@ -240,7 +240,7 @@ export default function JobDescriptionPage() {
 
             {/* ✅ Latest Jobs (plain style, no bullets) */}
       <div className="my-3">
-        <h2 className="text-xl text-gray-800 leading-relaxed font-bold mb-3">Checkout More Jobs</h2>
+        <h1 className="text-2xl text-gray-800 leading-relaxed font-bold mb-3">Checkout More Jobs</h1>
         <div className="space-y-4">
           {latestJobs
             .filter((item) => item.slug !== slug)
@@ -249,7 +249,7 @@ export default function JobDescriptionPage() {
               <p key={item.slug}>
                 <Link
                   href={`/job-description/${item.slug}`}
-                  className="text-blue-600 hover:underline text-[1rem] font-medium sm:text-base"
+                  className="text-blue-600 hover:underline text-[1rem] font-bold sm:text-base"
                 >
                   {item.title}
                 </Link>

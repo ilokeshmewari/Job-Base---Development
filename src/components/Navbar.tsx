@@ -27,28 +27,28 @@ export default function Navbar() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Instagram className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+          <Instagram className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
         </a>
         <a
           href="https://youtube.com/@jobbase25"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Youtube className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+          <Youtube className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
         </a>
         <a
           href="https://linkedin.com/company/job-base-25"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Linkedin className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+          <Linkedin className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
         </a>
         <a
           href="https://x.com/jobbase02"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Twitter className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+          <Twitter className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
         </a>
       </div>
     </nav>
