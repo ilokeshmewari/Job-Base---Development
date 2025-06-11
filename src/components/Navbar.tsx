@@ -79,6 +79,7 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+<<<<<<< HEAD
 
       {/* Backdrop (Animated from right) */}
       <div
@@ -130,6 +131,37 @@ export default function Navbar() {
             </a>
           </div>
         </div>
+=======
+      <div className="flex items-center gap-4">
+        <a
+          href="https://instagram.com/jobbase02"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Instagram className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
+        </a>
+        <a
+          href="https://youtube.com/@jobbase25"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Youtube className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
+        </a>
+        <a
+          href="https://linkedin.com/company/job-base-25"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Linkedin className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
+        </a>
+        <a
+          href="https://x.com/jobbase02"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Twitter className="w-6 h-6 text-gray-700 hover:text-gray-900 hover:scale-125" />
+        </a>
+>>>>>>> 1a9b5b0101c687110bc0bc29a2a1e4a018451880
       </div>
     </nav>
   );
