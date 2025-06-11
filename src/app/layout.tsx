@@ -73,6 +73,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             })
           }}
         />
+
+           <Script
+          id="pushalert"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(d, t) {
+                var g = d.createElement(t),
+                    s = d.getElementsByTagName(t)[0];
+                g.src = "https://cdn.pushalert.co/integrate_5417fc1b6ed47b84d35fd95cecc12ee7.js";
+                s.parentNode.insertBefore(g, s);
+              }(document, "script"));
+            `,
+          }}
+        />
+
       </head>
       <body>
         <div className="flex flex-col min-h-screen">
