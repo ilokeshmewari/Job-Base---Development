@@ -88,7 +88,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             `,
           }}
         />
-
+      {/**this is push notifcation */}
       </head>
       <body>
         <div className="flex flex-col min-h-screen">
