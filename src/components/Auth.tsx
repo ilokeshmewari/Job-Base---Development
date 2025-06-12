@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useRouter } from 'next/navigation';
 import { User, AuthChangeEvent } from '@supabase/supabase-js';
+import { Linkedin } from 'lucide-react';
 
 type MessageType = {
   text: string;
@@ -129,6 +130,15 @@ export default function Auth() {
     }
   };
 
+  const handleLinkedInLogin = async () => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'linkedin' });
+    if (error) {
+      setMessage({ text: error.message, type: 'error' });
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="h-auto sm:min-h-screen bg-white flex items-center justify-center">
       <div className="bg-white p-4 sm:p-8 w-full max-w-md">
@@ -141,8 +151,8 @@ export default function Auth() {
 
         {message.text && (
           <div className={`mb-6 p-4 rounded-lg ${message.type === 'error' ? 'bg-red-100 text-red-700' :
-              message.type === 'success' ? 'bg-green-100 text-green-700' :
-                'bg-yellow-100 text-yellow-700'
+            message.type === 'success' ? 'bg-green-100 text-green-700' :
+              'bg-yellow-100 text-yellow-700'
             }`}>
             {message.text}
           </div>
@@ -190,7 +200,6 @@ export default function Auth() {
                 />
               </div>
             </div>
-
 
             <button type="submit" disabled={loading}
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed">
@@ -257,7 +266,6 @@ export default function Auth() {
           </form>
         )}
 
-        {/* 
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -269,14 +277,25 @@ export default function Auth() {
           </div>
           <div className="mt-6 grid grid-cols-1 gap-3">
             <button
-              onClick={handleGoogleLogin}
+              onClick={async () => {
+                setLoading(true);
+                const { error } = await supabase.auth.signInWithOAuth({
+                  provider: 'linkedin',
+                });
+                if (error) {
+                  setMessage({ text: error.message, type: 'error' });
+                  setLoading(false);
+                }
+              }}
               disabled={loading}
-              className="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition disabled:opacity-50">
-              Google
+              className="w-full inline-flex justify-center items-center gap-2 py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition disabled:opacity-50"
+            >
+              <Linkedin className="h-5 w-5" />
+              Continue with LinkedIn
             </button>
           </div>
-        </div> 
-        */}
+        </div>
+
       </div>
     </div>
   );
