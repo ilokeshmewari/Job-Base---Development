@@ -12,7 +12,17 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      animation: {
+        slideInUp: 'slideInUp 0.4s ease-out',
+      },
+      keyframes: {
+        slideInUp: {
+          '0%': { transform: 'translateY(20%)' },
+          '100%': { transform: 'translateY(0)'},
+        },
+      },
     },
   },
   plugins: [],
 } satisfies Config;
+

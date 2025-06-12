@@ -19,6 +19,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
+    { name: "Jobs", path: "/see-all-jobs" },
     { name: "Blogs", path: "/blogs" },
     { name: "Contact", path: "/contact" },
   ];
@@ -34,7 +35,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full border-b bg-white shadow-sm z-50 relative">
+    <nav className="w-full border-b bg-white shadow-sm z-50">
       {/* Top Bar */}
       <div className="flex justify-between items-center px-4 py-3 sm:px-16 sm:py-4">
         {/* Logo */}

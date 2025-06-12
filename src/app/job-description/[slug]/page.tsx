@@ -9,6 +9,7 @@ import AdPopup from "@/components/AdPopup";
 import { supabase } from "@/lib/supabase";
 import ResumeReview from "@/components/ResumeReview";
 import JobInteractionStrip from "@/components/Jobinteract";
+import SignupPopUp from "@/components/SignupPopUp";
 
 
 interface Job {
@@ -259,6 +260,7 @@ export default function JobDescriptionPage() {
       </div>
 
       <ResumeReview />
+      <SignupPopUp />
 
     </div>
   );
