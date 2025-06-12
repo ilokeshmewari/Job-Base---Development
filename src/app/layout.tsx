@@ -7,6 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import NewsletterSection from "@/components/Newsletter";
 import Script from "next/script";
 import { Metadata } from "next";
+import SocialWidget from "@/components/Widget";
 
 export const metadata: Metadata = {
   title: "JobBase | Get Your Dream Job at jobbase.site",
@@ -100,6 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
         <Analytics />
         <SpeedInsights />
+        <SocialWidget />
       </body>
     </html>
   );
