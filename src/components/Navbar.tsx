@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase"; // Adjust path as needed
 import {
   Instagram,
   Youtube,
@@ -9,12 +10,14 @@ import {
   Twitter,
   Menu,
   X,
+  User,
 } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
   const [backdropVisible, setBackdropVisible] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -24,14 +27,32 @@ export default function Navbar() {
     { name: "Contact", path: "/contact" },
   ];
 
+  useEffect(() => {
+    // Check Supabase session
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsLoggedIn(!!session);
+    };
+    checkAuth();
+
+    // Optional: Listen for auth changes (login/logout)
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      checkAuth();
+    });
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
+
   const openMenu = () => {
     setBackdropVisible(true);
-    setTimeout(() => setMenuVisible(true), 100); // slight delay for smooth effect
+    setTimeout(() => setMenuVisible(true), 100);
   };
 
   const closeMenu = () => {
     setMenuVisible(false);
-    setTimeout(() => setBackdropVisible(false), 200); // wait for menu to slide out
+    setTimeout(() => setBackdropVisible(false), 200);
   };
 
   return (
@@ -57,6 +78,16 @@ export default function Navbar() {
               {link.name}
             </button>
           ))}
+
+          {isLoggedIn && (
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="text-gray-700 hover:text-black text-sm font-medium flex items-center gap-1"
+            >
+              <User className="w-4 h-4" /> Profile
+            </button>
+          )}
+
           <div className="flex items-center gap-3 ml-4">
             <a href="https://instagram.com/jobbase02" target="_blank" rel="noopener noreferrer">
               <Instagram className="w-5 h-5 text-gray-700 hover:text-black" />
@@ -81,7 +112,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Backdrop (Animated from right) */}
+      {/* Backdrop */}
       <div
         className={`fixed inset-0 z-40 transition-transform duration-300 ease-in-out transform ${
           backdropVisible ? "translate-x-0" : "translate-x-full"
@@ -89,7 +120,7 @@ export default function Navbar() {
         onClick={closeMenu}
       ></div>
 
-      {/* Menu Panel (delayed and smooth) */}
+      {/* Slide-in Menu */}
       <div
         className={`fixed top-0 right-0 h-full w-[70%] sm:w-[300px] bg-white z-50 shadow-lg transform transition-transform duration-300 ease-in-out ${
           menuVisible ? "translate-x-0" : "translate-x-full"
@@ -115,6 +146,18 @@ export default function Navbar() {
               {link.name}
             </button>
           ))}
+
+          {isLoggedIn && (
+            <button
+              onClick={() => {
+                closeMenu();
+                router.push("/dashboard");
+              }}
+              className="text-gray-700 hover:text-black text-base text-left flex items-center gap-1"
+            >
+              <User className="w-4 h-4" /> Profile
+            </button>
+          )}
 
           <div className="flex items-center gap-4 mt-4">
             <a href="https://instagram.com/jobbase02" target="_blank" rel="noopener noreferrer">
